@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,15 +50,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\EntryPoint.cs" />
+    <Compile Include="Controller\MonopolyGame.cs" />
+    <Compile Include="Controller\StateMachine.cs" />
+    <Compile Include="Controller\States\InitialState.cs" />
+    <Compile Include="Controller\States\PlayerTurnState.cs" />
+    <Compile Include="Controller\States\State.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Board.cs" />
+    <Compile Include="Model\Enums\NeighbourhoodType.cs" />
+    <Compile Include="Model\Interfaces\IPlayer.cs" />
+    <Compile Include="Model\Interfaces\ITile.cs" />
+    <Compile Include="Model\Players\Player.cs" />
+    <Compile Include="Model\Tiles\ChanceCard.cs" />
+    <Compile Include="Model\Tiles\ChanceCardGenerator.cs" />
+    <Compile Include="Model\Tiles\SpecialTile.cs" />
+    <Compile Include="Model\Tiles\Street.cs" />
+    <Compile Include="Model\Tiles\tax.cs" />
+    <Compile Include="Model\Tiles\Tile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />
+    <Compile Include="View\Renders\AbstractRenderer.cs" />
+    <Compile Include="View\Renders\MonoGameRender.cs" />
+    <Compile Include="View\UIInitializer.cs" />
+    <Compile Include="View\UI\Background.cs" />
+    <Compile Include="View\UI\Button.cs" />
+    <Compile Include="View\UI\Dice.cs" />
+    <Compile Include="View\UI\PlayerUI.cs" />
+    <Compile Include="View\UI\Sprite.cs" />
+    <Compile Include="View\UI\TileOwnerNotification.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -67,6 +97,80 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Content\1.xnb" />
+    <None Include="Content\2.xnb" />
+    <None Include="Content\3.xnb" />
+    <None Include="Content\4.xnb" />
+    <None Include="Content\5.xnb" />
+    <None Include="Content\6.xnb" />
+    <None Include="Content\Active.xnb" />
+    <None Include="Content\bin\Windows\1.xnb" />
+    <None Include="Content\bin\Windows\2.xnb" />
+    <None Include="Content\bin\Windows\3.xnb" />
+    <None Include="Content\bin\Windows\4.xnb" />
+    <None Include="Content\bin\Windows\5.xnb" />
+    <None Include="Content\bin\Windows\6.xnb" />
+    <None Include="Content\bin\Windows\Active.xnb" />
+    <None Include="Content\bin\Windows\Arial.xnb" />
+    <None Include="Content\bin\Windows\Buy.xnb" />
+    <None Include="Content\bin\Windows\BuyClicked.xnb" />
+    <None Include="Content\bin\Windows\Clicked.xnb" />
+    <None Include="Content\bin\Windows\EndTurn.xnb" />
+    <None Include="Content\bin\Windows\EndTurnClicked.xnb" />
+    <None Include="Content\bin\Windows\EndTurnHover.xnb" />
+    <None Include="Content\bin\Windows\FInalBoard.xnb" />
+    <None Include="Content\bin\Windows\Font.xnb" />
+    <None Include="Content\bin\Windows\Hover.xnb" />
+    <None Include="Content\bin\Windows\Hoverbuy.xnb" />
+    <None Include="Content\bin\Windows\Owner1.xnb" />
+    <None Include="Content\bin\Windows\Owner2.xnb" />
+    <None Include="Content\bin\Windows\pawn1.xnb" />
+    <None Include="Content\bin\Windows\pawn2.xnb" />
+    <None Include="Content\bin\Windows\pawn_blue.xnb" />
+    <None Include="Content\bin\Windows\pawn_red.xnb" />
+    <None Include="Content\bin\Windows\UnactiveBuy.xnb" />
+    <None Include="Content\Buy.xnb" />
+    <None Include="Content\BuyClicked.xnb" />
+    <None Include="Content\Clicked.xnb" />
+    <None Include="Content\Content.mgcb" />
+    <None Include="Content\EndTurn.xnb" />
+    <None Include="Content\EndTurnClicked.xnb" />
+    <None Include="Content\EndTurnHover.xnb" />
+    <None Include="Content\FInalBoard.xnb" />
+    <None Include="Content\Font.spritefont" />
+    <None Include="Content\Font.xnb" />
+    <None Include="Content\Hover.xnb" />
+    <None Include="Content\Hoverbuy.xnb" />
+    <None Include="Content\obj\Windows\.mgcontent" />
+    <None Include="Content\obj\Windows\1.mgcontent" />
+    <None Include="Content\obj\Windows\2.mgcontent" />
+    <None Include="Content\obj\Windows\3.mgcontent" />
+    <None Include="Content\obj\Windows\4.mgcontent" />
+    <None Include="Content\obj\Windows\5.mgcontent" />
+    <None Include="Content\obj\Windows\6.mgcontent" />
+    <None Include="Content\obj\Windows\Active.mgcontent" />
+    <None Include="Content\obj\Windows\Buy.mgcontent" />
+    <None Include="Content\obj\Windows\BuyClicked.mgcontent" />
+    <None Include="Content\obj\Windows\Clicked.mgcontent" />
+    <None Include="Content\obj\Windows\EndTurn.mgcontent" />
+    <None Include="Content\obj\Windows\EndTurnClicked.mgcontent" />
+    <None Include="Content\obj\Windows\EndTurnHover.mgcontent" />
+    <None Include="Content\obj\Windows\FInalBoard.mgcontent" />
+    <None Include="Content\obj\Windows\Font.mgcontent" />
+    <None Include="Content\obj\Windows\Hover.mgcontent" />
+    <None Include="Content\obj\Windows\Hoverbuy.mgcontent" />
+    <None Include="Content\obj\Windows\Owner1.mgcontent" />
+    <None Include="Content\obj\Windows\Owner2.mgcontent" />
+    <None Include="Content\obj\Windows\pawn1.mgcontent" />
+    <None Include="Content\obj\Windows\pawn2.mgcontent" />
+    <None Include="Content\obj\Windows\pawn_blue.mgcontent" />
+    <None Include="Content\obj\Windows\pawn_red.mgcontent" />
+    <None Include="Content\obj\Windows\UnactiveBuy.mgcontent" />
+    <None Include="Content\Owner1.xnb" />
+    <None Include="Content\Owner2.xnb" />
+    <None Include="Content\pawn1.xnb" />
+    <None Include="Content\pawn2.xnb" />
+    <None Include="Content\UnactiveBuy.xnb" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,6 +183,29 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\1.png" />
+    <Content Include="Content\2.png" />
+    <Content Include="Content\3.png" />
+    <Content Include="Content\4.png" />
+    <Content Include="Content\5.png" />
+    <Content Include="Content\6.png" />
+    <Content Include="Content\Active.png" />
+    <Content Include="Content\Buy.png" />
+    <Content Include="Content\BuyClicked.png" />
+    <Content Include="Content\Clicked.png" />
+    <Content Include="Content\EndTurn.png" />
+    <Content Include="Content\EndTurnClicked.png" />
+    <Content Include="Content\EndTurnHover.png" />
+    <Content Include="Content\FInalBoard.png" />
+    <Content Include="Content\Hover.png" />
+    <Content Include="Content\Hoverbuy.png" />
+    <Content Include="Content\Owner1.png" />
+    <Content Include="Content\Owner2.png" />
+    <Content Include="Content\pawn1.png" />
+    <Content Include="Content\pawn2.png" />
+    <Content Include="Content\UnactiveBuy.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
