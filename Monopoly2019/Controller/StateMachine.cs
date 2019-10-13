@@ -11,14 +11,29 @@ namespace Monopoly2019.Controller
     {
         public static State CurrentState;
         public static Dictionary<string, State> States = new Dictionary<string, State>();
+        private static EndTurnState endTurnState;
+        private static PlayerLandedState playerLandedState;
+        private static PlayerMoveState playerMoveState;
+        private static PlayerRollState playerRollState;
         private static PlayerTurnState playerTurnState;
         private static InitialState initialstate;
         public static void Initialize()
         {
-            playerTurnState = new PlayerTurnState(initialstate);
+            endTurnState = new EndTurnState(playerTurnState);
+            playerLandedState = new PlayerLandedState(endTurnState);
+            playerMoveState = new PlayerMoveState(playerLandedState);
+            playerRollState = new PlayerRollState(playerMoveState);
+            playerTurnState = new PlayerTurnState(playerRollState);
             initialstate = new InitialState(playerTurnState);
-            playerTurnState.NextState = initialstate;
+            endTurnState.NextState = playerTurnState;
+
+            //playerMoveState.NextState = initialstate;
             States.Add("InitialState", initialstate);
+            States.Add("PlayerTurnState", playerTurnState);
+            States.Add("PlayerRollState", playerRollState);
+            States.Add("PlayerMoveState", playerMoveState);
+            States.Add("PlayerLandedState", playerLandedState);
+            States.Add("EndTurnState", endTurnState);
         }
 
         public static void ChangeState()

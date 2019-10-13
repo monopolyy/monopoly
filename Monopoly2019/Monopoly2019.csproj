@@ -53,7 +53,11 @@
     <Compile Include="Controller\EntryPoint.cs" />
     <Compile Include="Controller\MonopolyGame.cs" />
     <Compile Include="Controller\StateMachine.cs" />
+    <Compile Include="Controller\States\EndTurnState.cs" />
     <Compile Include="Controller\States\InitialState.cs" />
+    <Compile Include="Controller\States\PlayerLandedState.cs" />
+    <Compile Include="Controller\States\PlayerMoveState.cs" />
+    <Compile Include="Controller\States\PlayerRollState.cs" />
     <Compile Include="Controller\States\PlayerTurnState.cs" />
     <Compile Include="Controller\States\State.cs" />
     <Compile Include="Form1.cs">
