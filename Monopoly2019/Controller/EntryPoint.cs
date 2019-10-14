@@ -8,11 +8,12 @@ namespace Monopoly2019.Controller
 {
    public static class EntryPoint
     {
-        public static MonopolyGame Game;
+        public static MonopolyGame Game = MonopolyGame.getInstance();
         static void Main()
         {
-            using (Game = new MonopolyGame())
-                Game.Run();
+            //using (Game = new MonopolyGame())
+            //    Game.Run();
+            Game.Run();
         }
     }
 }

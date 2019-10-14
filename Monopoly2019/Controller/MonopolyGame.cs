@@ -16,21 +16,34 @@ namespace Monopoly2019.Controller
 {
     public class MonopolyGame : Game
     {
+        private static MonopolyGame instance = null;
+        private static readonly object threadLock = new object(); // lock token
         public GraphicsDeviceManager graphics;
         public SpriteBatch SpriteBatch;
         public MonoGameRenderer renderer;
 
         public double Elapsed;
 
-        public MonopolyGame()
+        private MonopolyGame()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "C:/xampp/htdocs/monopoly/Monopoly2019/Content";
+            //Content.RootDirectory = "C:/xampp/htdocs/monopoly/Monopoly2019/Content";
+            Content.RootDirectory = "E:/AA KTU failai/4 metai/7 semestras/Objektinis programų projektavimas/Monopoly2019/Monopoly2019/Content";
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = 700;
             graphics.PreferredBackBufferWidth = 700;
         }
-
+        public static MonopolyGame getInstance()
+        {
+            lock(threadLock)
+            {
+                if (instance == null)
+                {
+                    instance = new MonopolyGame();
+                }
+            }
+            return instance;
+        }
         protected override void Initialize()
         {
             renderer = new MonoGameRenderer();
