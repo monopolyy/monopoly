@@ -13,6 +13,7 @@ using System.Net.Http;
 using Microsoft.Xna.Framework;
 using Monopoly2019.Controller;
 using System.Threading;
+using System.Net.Http;
 
 namespace Monopoly2019
 {
@@ -129,7 +130,7 @@ namespace Monopoly2019
                 {
                    // System.Timers.Timer tmr= ;
                 //   tmr.Stop();
-                  //  EntryPoint.StartGame();
+                    EntryPoint.StartGame();
                     
                 }
                 //Disable labels
