@@ -1,0 +1,125 @@
+﻿using System;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
+
+namespace server2.Models
+{
+    public partial class monopolisContext : DbContext
+    {
+        public monopolisContext()
+        {
+        }
+
+        public monopolisContext(DbContextOptions<monopolisContext> options)
+            : base(options)
+        {
+        }
+
+        public virtual DbSet<NeighbourhoodType> NeighbourhoodType { get; set; }
+        public virtual DbSet<Player> Player { get; set; }
+        public virtual DbSet<Streets> Streets { get; set; }
+        public virtual DbSet<Tax> Tax { get; set; }
+        public virtual DbSet<Tile> Tile { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlServer("Server=tcp:monopol.database.windows.net,1433;Initial Catalog=monopolis;Persist Security Info=False;User ID=aurval10;Password=aur.val10;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            }
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<NeighbourhoodType>(entity =>
+            {
+                entity.HasKey(e => e.IdNeighbourhoodType);
+
+                entity.Property(e => e.IdNeighbourhoodType)
+                    .HasColumnName("id_NeighbourhoodType")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(7)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Player>(entity =>
+            {
+                entity.HasKey(e => e.IdPlayer);
+
+                entity.Property(e => e.IdPlayer).HasColumnName("id_Player");
+
+                entity.Property(e => e.CurrentPosition).HasColumnName("currentPosition");
+
+                entity.Property(e => e.IndexP).HasColumnName("indexP");
+
+                entity.Property(e => e.IsInJail).HasColumnName("isInJail");
+
+                entity.Property(e => e.MoneyP).HasColumnName("moneyP");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Streets>(entity =>
+            {
+                entity.HasKey(e => e.IdStreets);
+
+                entity.Property(e => e.IdStreets).HasColumnName("id_Streets");
+
+                entity.Property(e => e.FkPlayeridPlayer).HasColumnName("fk_Playerid_Player");
+
+                entity.Property(e => e.NeighbourHood).HasColumnName("neighbourHood");
+
+                entity.Property(e => e.Price).HasColumnName("price");
+
+                entity.Property(e => e.Rent).HasColumnName("rent");
+
+                entity.HasOne(d => d.FkPlayeridPlayerNavigation)
+                    .WithMany(p => p.Streets)
+                    .HasForeignKey(d => d.FkPlayeridPlayer)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Streets__fk_Play__52593CB8");
+
+                entity.HasOne(d => d.NeighbourHoodNavigation)
+                    .WithMany(p => p.Streets)
+                    .HasForeignKey(d => d.NeighbourHood)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Streets__neighbo__5165187F");
+            });
+
+            modelBuilder.Entity<Tax>(entity =>
+            {
+                entity.HasKey(e => e.IdTax);
+
+                entity.Property(e => e.IdTax).HasColumnName("id_Tax");
+
+                entity.Property(e => e.TaxAmount).HasColumnName("taxAmount");
+            });
+
+            modelBuilder.Entity<Tile>(entity =>
+            {
+                entity.HasKey(e => e.IdTile);
+
+                entity.Property(e => e.IdTile)
+                    .HasColumnName("id_Tile")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.IndexT).HasColumnName("indexT");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnName("name")
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+        }
+    }
+}

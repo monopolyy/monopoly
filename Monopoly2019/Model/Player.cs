@@ -14,6 +14,7 @@ namespace Monopoly2019.Model
 
         public const int Initial_Player_Money = 1500;
         public const int Total_number_of_tiles = 40;
+        public int name { get; private set; }
         public int CurrentPosition { get; private set; } = 0;
         public int index { get; private set; } = 0;
         public bool isInJail { get; private set; } = false;
