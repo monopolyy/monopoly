@@ -19,7 +19,7 @@ namespace Monopoly2019.Model.Tiles
         public int Index { get; private set; }
         public string name { get; private set; }
 
-        public abstract string ActOnPlayer(Player player);
+        public abstract string ActOnPlayer(IPlayer player);
 
     }
 }

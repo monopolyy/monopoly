@@ -14,7 +14,7 @@ using Monopoly2019;
 
 namespace Monopoly2019.Controller
 {
-    public class MonopolyGame : Game
+    public class MonopolyGame : Game // Singleton
     {
         private static MonopolyGame instance = null;
         private static readonly object threadLock = new object(); // lock token

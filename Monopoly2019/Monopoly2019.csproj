@@ -67,9 +67,11 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\Board.cs" />
+    <Compile Include="Model\ConcretePlayerFactory.cs" />
     <Compile Include="Model\Enums\NeighbourhoodType.cs" />
     <Compile Include="Model\Interfaces\IPlayer.cs" />
     <Compile Include="Model\Interfaces\ITile.cs" />
+    <Compile Include="Model\PlayerFactory.cs" />
     <Compile Include="Model\Players\Player.cs" />
     <Compile Include="Model\Tiles\ChanceCard.cs" />
     <Compile Include="Model\Tiles\ChanceCardGenerator.cs" />

@@ -12,6 +12,6 @@ namespace Monopoly2019.Model.Interfaces
     {
         int Index { get; }
         string name { get; }
-        string ActOnPlayer ( Player player );
+        string ActOnPlayer ( IPlayer player );
     }
 }

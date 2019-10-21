@@ -15,7 +15,7 @@ namespace Monopoly2019.Model.Tiles
             
         }
 
-        public override string ActOnPlayer(Player player)
+        public override string ActOnPlayer(IPlayer player)
         {
             if (this.Index == 10)
             {

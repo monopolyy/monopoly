@@ -12,7 +12,7 @@ namespace Monopoly2019.Model.Tiles
     public class Street : Tile, ITile
     {
         public NeighbourhoodType NeighbourHood { get; private set; }
-        public Player Owner { get; set; }
+        public IPlayer Owner { get; set; }
         public int Price { get; set; }
         public int Rent { get; set; }
 
@@ -26,7 +26,7 @@ namespace Monopoly2019.Model.Tiles
         }
 
 
-        public override string ActOnPlayer(Player player)
+        public override string ActOnPlayer(IPlayer player)
         {
             if (this.Owner == player)
             {

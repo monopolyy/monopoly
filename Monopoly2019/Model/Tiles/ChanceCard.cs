@@ -13,7 +13,7 @@ namespace Monopoly2019.Model.Tiles
         {
 
         }
-        public override string ActOnPlayer(Player player)
+        public override string ActOnPlayer(IPlayer player)
         {
             //return ChanceCardGenerator.GenerateRandomCard(player);
             return null;

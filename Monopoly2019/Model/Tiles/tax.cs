@@ -15,7 +15,7 @@ namespace Monopoly2019.Model.Tiles
         {
             this.TaxAmount = taxAmount;
         }
-        public override string ActOnPlayer(Player player)
+        public override string ActOnPlayer(IPlayer player)
         {
             player.DecrementMoney(this.TaxAmount);
             return this.name + " " + this.TaxAmount;

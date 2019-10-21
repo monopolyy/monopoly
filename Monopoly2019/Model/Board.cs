@@ -5,22 +5,30 @@ using System.Text;
 using System.Threading.Tasks;
 using Monopoly2019.Model.Tiles;
 using Monopoly2019.Model.Enums;
+using Monopoly2019.Model.Interfaces;
 
 namespace Monopoly2019.Model
 {
     public static class Board
     {
-        public static List<Player> players;
+        public static List<IPlayer> players;
         public static List<Tile> allTiles;
         public static int CurrentPlayerIndex;
-
+        public static int numberOfPlayers = 0;
         public static void InitializeBoard()
         {
+            PlayerFactory factory = new ConcretePlayerFactory();
             CurrentPlayerIndex = 0;
-            players = new List<Player>()
+            IPlayer player = factory.GetPlayer();
+            //Player player = new Player(numberOfPlayers);
+            //numberOfPlayers++;
+            IPlayer player2 = factory.GetPlayer();
+            //Player player2 = new Player(numberOfPlayers);
+            //numberOfPlayers++;
+
+            players = new List<IPlayer>()
             {
-            new Player(1),
-             new Player(2)
+                player, player2
             };
 
             allTiles = new List<Tile>()
@@ -75,6 +83,8 @@ namespace Monopoly2019.Model
             currentStreet.Owner = players[playerIndex];
 
             players[playerIndex].streets.Add(currentStreet);
+            //players[playerIndex].streets.Add(currentStreet);
+            //players[playerIndex].DecrementMoney(currentStreet.Price);
             players[playerIndex].DecrementMoney(currentStreet.Price);
         }
 
