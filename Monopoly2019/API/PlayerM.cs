@@ -27,6 +27,12 @@ namespace Monopoly2019.API
             public bool isInJail { get;  set; }
             [JsonProperty(PropertyName = "moneyP")]
             public int moneyP { get; set; }
+           // [JsonProperty(PropertyName = "foods")]
+            //public List<Street> streets { get; set; }
+
+
+
+
         }
     }
 }

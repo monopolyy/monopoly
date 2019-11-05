@@ -236,6 +236,7 @@
     <Content Include="Content\pawn1.png" />
     <Content Include="Content\pawn2.png" />
     <Content Include="Content\UnactiveBuy.png" />
+    <Content Include="sqlfile.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,55 @@
+﻿CREATE TABLE Player
+(
+	name char (30) NOT NULL,
+	currentPosition int NOT NULL,
+	indexP int NOT NULL,
+	isInJail bit NOT NULL,
+	moneyP int NOT NULL,
+	id_Player integer IDENTITY(1,1 )NOT NULL,
+	PRIMARY KEY(id_Player)
+);
+
+CREATE TABLE Tax
+(
+	taxAmount int NOT NULL,
+	id_Tax integer IDENTITY(1,1 ) NOT NULL,
+	PRIMARY KEY(id_Tax)
+);
+
+CREATE TABLE Tile
+(
+	indexT int NOT NULL,
+	name char (30) NOT NULL,
+	id_Tile integer IDENTITY(1,1) NOT NULL,
+	PRIMARY KEY(id_Tile)
+);
+
+CREATE TABLE NeighbourhoodType
+(
+	id_NeighbourhoodType integer,
+	name char (7) NOT NULL,
+	PRIMARY KEY(id_NeighbourhoodType)
+);
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(1, 'Brown')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(2, 'Blue')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(3, 'HotPink')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(4, 'Orange')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(5, 'Red')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(6, 'Yellow')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(7, 'Green')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(8, 'Purple')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(9, 'Station')
+INSERT INTO NeighbourhoodType(id_NeighbourhoodType, name) VALUES(10, 'Utility')
+
+CREATE TABLE Streets
+(
+	name char (30) NOT NULL,
+	price int NOT NULL,
+	rent int NOT NULL,
+	neighbourHood integer NOT NULL,
+	id_Streets integer IDENTITY(1,1) NOT NULL,
+	fk_Playerid_Player integer NOT NULL,
+	PRIMARY KEY(id_Streets),
+	FOREIGN KEY(neighbourHood) REFERENCES NeighbourhoodType (id_NeighbourhoodType),
+	FOREIGN KEY(fk_Playerid_Player) REFERENCES Player (id_Player)
+);
