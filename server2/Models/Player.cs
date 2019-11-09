@@ -7,7 +7,7 @@ namespace server2.Models
     {
         public Player()
         {
-            Streets = new HashSet<Streets>();
+            Streets = new HashSet<Street>();
         }
 
         public string Name { get; set; }
@@ -18,6 +18,6 @@ namespace server2.Models
         public int MoneyP { get; set; }
         public int IdPlayer { get; set; }
 
-        public ICollection<Streets> Streets { get; set; }
+        public ICollection<Street> Streets { get; set; }
     }
 }

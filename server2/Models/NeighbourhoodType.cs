@@ -7,12 +7,12 @@ namespace server2.Models
     {
         public NeighbourhoodType()
         {
-            Streets = new HashSet<Streets>();
+            Streets = new HashSet<Street>();
         }
 
         public int IdNeighbourhoodType { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Streets> Streets { get; set; }
+        public ICollection<Street> Streets { get; set; }
     }
 }

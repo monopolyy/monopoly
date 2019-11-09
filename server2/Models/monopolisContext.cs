@@ -17,7 +17,7 @@ namespace server2.Models
 
         public virtual DbSet<NeighbourhoodType> NeighbourhoodType { get; set; }
         public virtual DbSet<Player> Player { get; set; }
-        public virtual DbSet<Streets> Streets { get; set; }
+        public virtual DbSet<Street> Street { get; set; }
         public virtual DbSet<Tax> Tax { get; set; }
         public virtual DbSet<Tile> Tile { get; set; }
 
@@ -70,7 +70,7 @@ namespace server2.Models
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<Streets>(entity =>
+            modelBuilder.Entity<Street>(entity =>
             {
                 entity.HasKey(e => e.IdStreets);
 
@@ -83,6 +83,14 @@ namespace server2.Models
                 entity.Property(e => e.Price).HasColumnName("price");
 
                 entity.Property(e => e.Rent).HasColumnName("rent");
+
+                entity.Property(e => e.Number).HasColumnName("number");
+
+                entity.Property(e => e.Name)
+                   .IsRequired()
+                   .HasColumnName("name")
+                   .HasMaxLength(255)
+                   .IsUnicode(false);
 
                 entity.HasOne(d => d.FkPlayeridPlayerNavigation)
                     .WithMany(p => p.Streets)

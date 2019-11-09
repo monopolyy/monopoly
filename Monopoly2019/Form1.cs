@@ -35,6 +35,7 @@ namespace Monopoly2019
             label2.Visible = false;
             roundButton1.Visible = false;
             roundButton2.Visible = false;
+            roundButton3.Visible = false;
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -353,6 +354,7 @@ namespace Monopoly2019
                         roundButton1.Image = Image.FromFile("../Content/Active.png");
                         roundButton1.Visible = true;
                         roundButton1.BackgroundImageLayout = ImageLayout.Stretch;
+                        currentPlayer.idPlayer = player.idPlayer;
                     }
                 }
 
@@ -371,10 +373,13 @@ namespace Monopoly2019
             int dice2 = rnd.Next(1, 6);
             dice1Pic = ShowDice(dice1, 1);
             dice2Pic = ShowDice(dice2, 2);
-
+            roundButton1.Visible = true;
             roundButton2.Image = Image.FromFile("../Content/EndTurn.png");
             roundButton2.Visible = true;
+            
+           
             roundButton2.BackgroundImageLayout = ImageLayout.Stretch;
+           // roundButton3.BackgroundImageLayout = ImageLayout.Stretch;
 
             Controls.Add(dice1Pic);
             Controls.Add(dice2Pic);
@@ -382,6 +387,11 @@ namespace Monopoly2019
             if (newPosition>=40)
             {
                 newPosition = newPosition - 40;
+            }
+            if (newPosition!=0 || newPosition != 2 || newPosition != 4 || newPosition != 7 || newPosition != 10 || newPosition != 12 || newPosition != 17)
+            {
+                roundButton3.Image = Image.FromFile("../Content/Buy.png");
+                roundButton3.Visible = true;
             }
             currentPlayer.currentPosition = newPosition;
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
@@ -395,7 +405,7 @@ namespace Monopoly2019
             dice2Pic.Visible = false;
             roundButton1.Visible = false;
             roundButton2.Visible = false;
-
+            roundButton3.Visible = false;
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  0  ,\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
             Processor.UpdateData("api/players/endTurn", content);
@@ -404,6 +414,16 @@ namespace Monopoly2019
             HttpContent content2 = new StringContent(payload2, Encoding.UTF8, "application/json");
             Processor.UpdateData("api/players/endTurn", content2);
           //  timer2.Interval = 1000;
+        }
+
+        private void roundButton3_Click(object sender, EventArgs e)
+        {
+            var payload = "{\"number\":\"" + currentPlayer.currentPosition + "\",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
+           // var payload = "{\"number\":\"" + currentPlayer.currentPosition + ",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+            Processor.UpdateData("api/streets/AssignStreet", content);
+
+
         }
     }
 }
