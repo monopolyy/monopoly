@@ -43,6 +43,23 @@ namespace Monopoly2019.API
                 }
             }
         }
+        public static async void UpdateData(string apiUrl, HttpContent data, Action onSuccess = null, Action<string> onFailure = null)
+        {
+            //  var content = new FormUrlEncodedContent(data);
+
+            using (var response = await ApiHelper.ApiClient.PutAsync(ApiHelper.ApiClient.BaseAddress + apiUrl, data))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    onSuccess?.Invoke();
+                }
+                else
+                {
+                    onFailure?.Invoke(response.ReasonPhrase);
+                }
+            }
+        }
+
 
 
     }

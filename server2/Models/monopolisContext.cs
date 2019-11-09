@@ -59,6 +59,8 @@ namespace server2.Models
 
                 entity.Property(e => e.IsInJail).HasColumnName("isInJail");
 
+                entity.Property(e => e.Turn).HasColumnName("turn");
+
                 entity.Property(e => e.MoneyP).HasColumnName("moneyP");
 
                 entity.Property(e => e.Name)

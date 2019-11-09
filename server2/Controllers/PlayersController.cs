@@ -80,6 +80,76 @@ namespace server2.Models
             return NoContent();
         }
 
+
+        
+        [HttpPut("endTurn")]
+        public async Task<IActionResult> EndPlayerTurn([FromBody] Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
+            playee.Turn = player.Turn;
+
+            await _context.SaveChangesAsync();
+
+              try
+              {
+                  await _context.SaveChangesAsync();
+              }
+              catch (DbUpdateConcurrencyException)
+              {
+                  if (!PlayerExists(player.IdPlayer))
+                  {
+                      return NotFound();
+                  }
+                  else
+                  {
+                      throw;
+                  }
+              }
+
+            return Ok();
+        }
+
+
+        [HttpPut("move")]
+        public async Task<IActionResult> MovePlayer([FromBody] Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
+            playee.CurrentPosition = player.CurrentPosition;
+
+            await _context.SaveChangesAsync();
+
+          
+
+              try
+              {
+                  await _context.SaveChangesAsync();
+              }
+              catch (DbUpdateConcurrencyException)
+              {
+                  if (!PlayerExists(player.IdPlayer))
+                  {
+                      return NotFound();
+                  }
+                  else
+                  {
+                      throw;
+                  }
+              }
+
+            return Ok();
+        }
+
+
         // POST: api/Players
         [HttpPost("new")]
         public async Task<IActionResult> PostPlayer([FromBody] Player player)
