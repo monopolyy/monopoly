@@ -144,8 +144,14 @@ namespace Monopoly2019
                 if (indexP == 2)
                 {
                     Image board = Image.FromFile("../Content/FinalBoard.png");
-
-                    ToogleGame(false);
+                    int count = 0;
+                    foreach (var player in players)
+                    {
+                        playerDisplay.Add(ShowPlayers(player));
+                        Controls.Add(playerDisplay[count]);
+                        count++;
+                    }
+                        ToogleGame(false);
                     label2.Visible = true;
                     label2.BackColor = Color.Transparent;
                     this.BackgroundImage = board;
@@ -280,27 +286,18 @@ namespace Monopoly2019
 
                 foreach (var player in players)
                 {
-                    timer2.Interval = 50000;
+                    //timer2.Interval = 50000;
                     var playee = Allplayers.Find(pl => pl.indexP == player.indexP);
                     if (playee.currentPosition != player.currentPosition)
                     {
-                        if (playerDisplay[player.indexP] != null)
-                        {
+                      
                             playerDisplay[player.indexP].Visible = false;
                             playee.currentPosition = player.currentPosition;
                             var index = Allplayers.FindIndex(c => c.indexP == player.indexP);
                             Allplayers[index] = playee;
                             playerDisplay[player.indexP] = ShowPlayers(player);
                             Controls.Add(playerDisplay[player.indexP]);
-                        }
-                        else
-                        {
-                            playee.currentPosition = player.currentPosition;
-                            var index = Allplayers.FindIndex(c => c.indexP == player.indexP);
-                            Allplayers[index] = playee;
-                            playerDisplay[player.indexP] = ShowPlayers(player);
-                            Controls.Add(playerDisplay[player.indexP]);
-                        }
+                       
                     
                     }
                    // play = ShowPlayers(player);
@@ -356,7 +353,7 @@ namespace Monopoly2019
             var payload2 = "{\"turn\":  1  ,\"indexP\": " + anotherPlayerIndex + "}";
             HttpContent content2 = new StringContent(payload2, Encoding.UTF8, "application/json");
             Processor.UpdateData("api/players/endTurn", content2);
-            timer2.Interval = 1000;
+          //  timer2.Interval = 1000;
         }
     }
 }
