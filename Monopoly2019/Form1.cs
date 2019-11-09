@@ -180,7 +180,7 @@ namespace Monopoly2019
             {
                 playerPic.ImageLocation = "../Content/pawn1.png";
                 playerPic.Size = new Size(20, 20);
-                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), this.Height - 65);
+                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 65));
                 playerPic.SizeMode = PictureBoxSizeMode.Zoom;
                 playerPic.BackColor = Color.Transparent;
 
@@ -189,7 +189,7 @@ namespace Monopoly2019
             {
                 playerPic.ImageLocation = "../Content/pawn2.png";
                 playerPic.Size = new Size(20, 20);
-                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), this.Height - 90);
+                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 90));
                 playerPic.SizeMode = PictureBoxSizeMode.Zoom;
                 playerPic.BackColor = Color.Transparent;
             }
@@ -258,13 +258,59 @@ namespace Monopoly2019
         {
             int playerPosition = 0;
             int squareWit = (this.Width - 65)/10;
-          //  int squareHei = (this.Height - 65) / 10;
-            if (position<=10)
+            //  int squareHei = (this.Height - 65) / 10;
+            if (position <= 10)
             {
                 playerPosition = this.Width - 65 - position * squareWit;
             }
+            else if (position <= 20)
+            {
+                playerPosition = 20;
+            }
+            else if (position <= 30)
+            {
+                int positionin = position - 20;
+                playerPosition = 20 + positionin * squareWit;
+            }
+            else {
+                playerPosition = this.Width - 65;
+            }
+
             return playerPosition;
-        
+        }
+        public int PlayerHeightPositionOnBoard(int position, int height)
+        {
+            int playerPosition = 0;
+            int squareWit = (this.Width - height) / 10;
+            //  int squareHei = (this.Height - 65) / 10;
+            if (position <= 10)
+            {
+                playerPosition = this.Height - height;
+            }
+            else if (position <= 20)
+            {
+                int positionint = position - 10;
+                playerPosition = this.Height - height - positionint * squareWit;
+            }
+            else if (position <= 30)
+            {
+                if (height == 90)
+                {
+                    playerPosition = 20;
+                }
+                else { playerPosition = 45; }
+            }
+            else
+            {
+                int positionint = position - 30;
+                if (height == 90)
+                {
+                    playerPosition = 20+positionint*squareWit;
+                }
+                else { playerPosition = 45 + positionint * squareWit; }
+            }
+
+            return playerPosition;
         }
 
 
@@ -333,6 +379,10 @@ namespace Monopoly2019
             Controls.Add(dice1Pic);
             Controls.Add(dice2Pic);
             int newPosition = currentPlayer.currentPosition + dice1 + dice2;
+            if (newPosition>=40)
+            {
+                newPosition = newPosition - 40;
+            }
             currentPlayer.currentPosition = newPosition;
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
