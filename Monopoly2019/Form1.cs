@@ -396,7 +396,7 @@ namespace Monopoly2019
             currentPlayer.currentPosition = newPosition;
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            Processor.UpdateData("api/players/move", content);
+            Processor.UpdateData("api/players/action/1", content);
         }
 
         private void roundButton2_Click(object sender, EventArgs e)
@@ -412,7 +412,7 @@ namespace Monopoly2019
             int anotherPlayerIndex = GivePlayerIndex(currentPlayer.indexP);
             var payload2 = "{\"turn\":  1  ,\"indexP\": " + anotherPlayerIndex + "}";
             HttpContent content2 = new StringContent(payload2, Encoding.UTF8, "application/json");
-            Processor.UpdateData("api/players/endTurn", content2);
+            Processor.UpdateData("api/players/action/2", content2);
           //  timer2.Interval = 1000;
         }
 

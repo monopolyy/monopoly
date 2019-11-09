@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using server2.Strategy;
 
 namespace server2.Models
 {
@@ -8,6 +9,9 @@ namespace server2.Models
         public Player()
         {
             Streets = new HashSet<Street>();
+            addStrategy(new BuyStreet());
+            addStrategy(new DropDices());
+            addStrategy(new EndTurn());
         }
 
         public string Name { get; set; }
@@ -19,5 +23,18 @@ namespace server2.Models
         public int IdPlayer { get; set; }
 
         public ICollection<Street> Streets { get; set; }
+
+        private  List<StrategyAlgo> actions = new List<StrategyAlgo>();
+
+        private StrategyAlgo activeStrategy;
+        private void addStrategy(StrategyAlgo s)
+        {
+            this.actions.Add(s);
+        }
+         public void Act(int index, Player play)
+        {
+           actions[index].operation(play, this);
+        }
+
     }
 }

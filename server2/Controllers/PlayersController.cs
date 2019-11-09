@@ -81,7 +81,35 @@ namespace server2.Models
         }
 
 
-        
+        [HttpPut("action/{act}")]
+        public async Task<IActionResult> Act([FromRoute] int act,[FromBody] Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+       
+            
+            
+            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
+
+             playee.Act(act, player);
+
+
+            //playee.Turn = player.Turn;
+
+            await _context.SaveChangesAsync();
+
+
+            return Ok();
+        }
+
+
+
+
+
+
         [HttpPut("endTurn")]
         public async Task<IActionResult> EndPlayerTurn([FromBody] Player player)
         {
