@@ -32,7 +32,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -40,6 +39,8 @@
             this.roundButton3 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton2 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton1 = new Monopoly2019.Model.Buttons.RoundButton();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.roundButton4 = new Monopoly2019.Model.Buttons.RoundButton();
             this.SuspendLayout();
             // 
             // button1
@@ -71,13 +72,6 @@
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 2;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(43, 75);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
             // 
             // timer1
             // 
@@ -112,7 +106,7 @@
             // 
             // roundButton3
             // 
-            this.roundButton3.Location = new System.Drawing.Point(476, 376);
+            this.roundButton3.Location = new System.Drawing.Point(428, 481);
             this.roundButton3.Name = "roundButton3";
             this.roundButton3.Size = new System.Drawing.Size(61, 55);
             this.roundButton3.TabIndex = 9;
@@ -122,7 +116,7 @@
             // 
             // roundButton2
             // 
-            this.roundButton2.Location = new System.Drawing.Point(543, 376);
+            this.roundButton2.Location = new System.Drawing.Point(495, 481);
             this.roundButton2.Name = "roundButton2";
             this.roundButton2.Size = new System.Drawing.Size(61, 55);
             this.roundButton2.TabIndex = 8;
@@ -132,7 +126,7 @@
             // 
             // roundButton1
             // 
-            this.roundButton1.Location = new System.Drawing.Point(205, 376);
+            this.roundButton1.Location = new System.Drawing.Point(205, 481);
             this.roundButton1.Margin = new System.Windows.Forms.Padding(2);
             this.roundButton1.Name = "roundButton1";
             this.roundButton1.Size = new System.Drawing.Size(56, 55);
@@ -141,11 +135,29 @@
             this.roundButton1.UseVisualStyleBackColor = true;
             this.roundButton1.Click += new System.EventHandler(this.roundButton1_Click);
             // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(550, 437);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 3;
+            // 
+            // roundButton4
+            // 
+            this.roundButton4.Location = new System.Drawing.Point(460, 417);
+            this.roundButton4.Name = "roundButton4";
+            this.roundButton4.Size = new System.Drawing.Size(63, 58);
+            this.roundButton4.TabIndex = 10;
+            this.roundButton4.Text = "Upgrade House";
+            this.roundButton4.UseVisualStyleBackColor = true;
+            this.roundButton4.Click += new System.EventHandler(this.roundButton4_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 571);
+            this.ClientSize = new System.Drawing.Size(736, 713);
+            this.Controls.Add(this.roundButton4);
             this.Controls.Add(this.roundButton3);
             this.Controls.Add(this.roundButton2);
             this.Controls.Add(this.roundButton1);
@@ -169,7 +181,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -177,6 +188,8 @@
         private Model.Buttons.RoundButton roundButton1;
         private Model.Buttons.RoundButton roundButton2;
         private Model.Buttons.RoundButton roundButton3;
+        private System.Windows.Forms.TextBox textBox2;
+        private Model.Buttons.RoundButton roundButton4;
     }
 }
 

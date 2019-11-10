@@ -84,6 +84,8 @@ namespace server2.Models
 
                 entity.Property(e => e.Rent).HasColumnName("rent");
 
+                entity.Property(e => e.Level).HasColumnName("level");
+
                 entity.Property(e => e.Number).HasColumnName("number");
 
                 entity.Property(e => e.Name)

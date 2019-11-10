@@ -36,6 +36,7 @@ namespace Monopoly2019
             roundButton1.Visible = false;
             roundButton2.Visible = false;
             roundButton3.Visible = false;
+            roundButton4.Visible = false;
         }
 
 
@@ -461,11 +462,11 @@ namespace Monopoly2019
         public int PlayerWithPositionOnBoard(int position)
         {
             int playerPosition = 0;
-            int squareWit = (this.Width - 65) / 10;
+            int squareWit = (this.Width - 125) / 10;
             //  int squareHei = (this.Height - 65) / 10;
             if (position <= 10)
             {
-                playerPosition = this.Width - 65 - position * squareWit;
+                playerPosition = this.Width - 90 - position * squareWit;
             }
             else if (position <= 20)
             {
@@ -474,11 +475,11 @@ namespace Monopoly2019
             else if (position <= 30)
             {
                 int positionin = position - 20;
-                playerPosition = 20 + positionin * squareWit;
+                playerPosition = 50 + positionin * squareWit;
             }
             else
             {
-                playerPosition = this.Width - 65;
+                playerPosition = this.Width - 80;
             }
 
             return playerPosition;
@@ -486,7 +487,7 @@ namespace Monopoly2019
         public int PlayerHeightPositionOnBoard(int position, int height)
         {
             int playerPosition = 0;
-            int squareWit = (this.Width - height) / 10;
+            int squareWit = (this.Width - height - 60) / 10;
             //  int squareHei = (this.Height - 65) / 10;
             if (position <= 10)
             {
@@ -495,7 +496,7 @@ namespace Monopoly2019
             else if (position <= 20)
             {
                 int positionint = position - 10;
-                playerPosition = this.Height - height - positionint * squareWit;
+                playerPosition = this.Height - height- 10  - positionint * squareWit;
             }
             else if (position <= 30)
             {
@@ -510,15 +511,17 @@ namespace Monopoly2019
                 int positionint = position - 30;
                 if (height == 90)
                 {
-                    playerPosition = 20 + positionint * squareWit;
+                    playerPosition = 50 + positionint * squareWit;
                 }
-                else { playerPosition = 45 + positionint * squareWit; }
+                else { playerPosition = 75 + positionint * squareWit; }
             }
 
             return playerPosition;
         }
 
+        private void roundButton4_Click(object sender, EventArgs e)
+        {
 
-
+        }
     }
 }
