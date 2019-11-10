@@ -26,17 +26,30 @@ namespace server2.Models
             return this.Price;
         }
 
+        private List<IObserver> _observers = new List<IObserver>();
         public void Attach(IObserver observer)
         {
-
+            Console.WriteLine("Street: Attached an observer.");
+            this._observers.Add(observer);
         }
         public void Detach(IObserver observer)
         {
-
+            this._observers.Remove(observer);
+            Console.WriteLine("Street: Detached an observer.");
         }
         public void Notify()
         {
+            Console.WriteLine("Street: Notifying observers...");
 
+            foreach (var observer in _observers)
+            {
+                observer.Update(this);
+            }
+        }
+        public void SomeActions()
+        {
+            Console.WriteLine("\nStreet: Changing the owner of {0} street!", this.Name);
+            this.Notify();
         }
     }
 }

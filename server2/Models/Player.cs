@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using server2.Strategy;
+using server2.Observer;
 
 namespace server2.Models
 {
-    public partial class Player
+    public partial class Player : IObserver
     {
         public Player()
         {
@@ -38,6 +39,9 @@ namespace server2.Models
         {
            actions[index].operation(play, this, _context);
         }
-
+        public void Update(IStreet street)
+        {
+            Console.WriteLine("Player: {0} was notified about street {1} owner changes", this.Name, (street as Street).Name);
+        }
     }
 }
