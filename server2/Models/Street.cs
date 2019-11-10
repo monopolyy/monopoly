@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using server2.Observer;
 
 namespace server2.Models
 {
-    public partial class Street
+    public partial class Street : IStreet
     {
         public string Name { get; set; }
         public int Price { get; set; }
@@ -16,5 +17,18 @@ namespace server2.Models
 
         public Player FkPlayeridPlayerNavigation { get; set; }
         public NeighbourhoodType NeighbourHoodNavigation { get; set; }
+
+        public void Attach(IObserver observer)
+        {
+
+        }
+        public void Detach(IObserver observer)
+        {
+
+        }
+        public void Notify()
+        {
+
+        }
     }
 }
