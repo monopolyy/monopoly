@@ -46,6 +46,20 @@ namespace server2.Controllers
             return Ok(street);
         }
 
+
+
+        public Street GetStreetByNum(int pos)
+        {
+           
+
+            var streett = _context.Street.First(st => st.Number == pos);
+
+            return streett;
+        }
+
+
+
+
         // PUT: api/Streets/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutStreet([FromRoute] int id, [FromBody] Street street)

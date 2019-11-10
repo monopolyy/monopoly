@@ -8,7 +8,7 @@ namespace server2.Strategy
 {
     public class EndTurn : StrategyAlgo
     {
-        public override Player operation(Player player, Player OriginalPlayer)
+        public override Player operation(Player player, Player OriginalPlayer, monopolisContext _context)
         {
             OriginalPlayer.Turn = player.Turn;
             return OriginalPlayer;

@@ -94,7 +94,7 @@ namespace server2.Models
             
             var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
 
-             playee.Act(act, player);
+             playee.Act(act, player, _context);
 
 
             //playee.Turn = player.Turn;
@@ -107,93 +107,36 @@ namespace server2.Models
 
 
 
-
-
-
-        [HttpPut("endTurn")]
-        public async Task<IActionResult> EndPlayerTurn([FromBody] Player player)
+    /*    [HttpDelete("deleteAll")]
+        public async Task<IActionResult> DeleteAllPlayers()
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
-            playee.Turn = player.Turn;
+            foreach (var entity in _context.Player)
+                _context.Player.Remove(entity);
+            // _context.SaveChanges();
 
+
+            //    _context.Player.Remove(player);
             await _context.SaveChangesAsync();
-
-              try
-              {
-                  await _context.SaveChangesAsync();
-              }
-              catch (DbUpdateConcurrencyException)
-              {
-                  if (!PlayerExists(player.IdPlayer))
-                  {
-                      return NotFound();
-                  }
-                  else
-                  {
-                      throw;
-                  }
-              }
 
             return Ok();
-        }
+        }*/
 
 
-        [HttpPut("move")]
-        public async Task<IActionResult> MovePlayer([FromBody] Player player)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
-            playee.CurrentPosition = player.CurrentPosition;
-
-            await _context.SaveChangesAsync();
-
-          
-
-              try
-              {
-                  await _context.SaveChangesAsync();
-              }
-              catch (DbUpdateConcurrencyException)
-              {
-                  if (!PlayerExists(player.IdPlayer))
-                  {
-                      return NotFound();
-                  }
-                  else
-                  {
-                      throw;
-                  }
-              }
-
-            return Ok();
-        }
 
 
-        // POST: api/Players
-        [HttpPost("new")]
-        public async Task<IActionResult> PostPlayer([FromBody] Player player)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            _context.Player.Add(player);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPlayer", new { id = player.IdPlayer }, player);
-        }
 
-        // DELETE: api/Players/5
+
+
+
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePlayer([FromRoute] int id)
         {
@@ -213,6 +156,31 @@ namespace server2.Models
 
             return Ok(player);
         }
+
+
+
+
+
+
+
+        // POST: api/Players
+        [HttpPost("new")]
+        public async Task<IActionResult> PostPlayer([FromBody] Player player)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _context.Player.Add(player);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetPlayer", new { id = player.IdPlayer }, player);
+        }
+
+        // DELETE: api/Players/5
+        
+    
 
         private bool PlayerExists(int id)
         {

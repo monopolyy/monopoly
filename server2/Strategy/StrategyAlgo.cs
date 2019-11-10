@@ -8,6 +8,6 @@ namespace server2.Strategy
 {
     public abstract class StrategyAlgo
     {
-        public abstract Player operation(Player player, Player OriginalPlayer);
+        public abstract Player operation(Player player, Player OriginalPlayer, monopolisContext _context);
     }
 }

@@ -61,6 +61,25 @@ namespace Monopoly2019.API
         }
 
 
+        public static async void DeleteData(string apiUrl, Action onSuccess = null, Action<string> onFailure = null)
+        {
+            //  var content = new FormUrlEncodedContent(data);
+
+            using (var response = await ApiHelper.ApiClient.DeleteAsync(ApiHelper.ApiClient.BaseAddress + apiUrl))
+            {
+                if (response.IsSuccessStatusCode)
+                {
+                    onSuccess?.Invoke();
+                }
+                else
+                {
+                    onFailure?.Invoke(response.ReasonPhrase);
+                }
+            }
+        }
+
+
+       
 
     }
 }

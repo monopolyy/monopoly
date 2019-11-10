@@ -38,13 +38,28 @@ namespace Monopoly2019
             roundButton3.Visible = false;
         }
 
+
+        //-------------------------------i6jungti viska-------------------------
         private void button2_Click(object sender, EventArgs e)
         {
-
+            Processor.DeleteData("api/players/deleteAll");
 
 
             Application.Exit();
         }
+
+
+        private void OnFormClosed(object sender, FormClosedEventArgs e)
+        {
+            Processor.DeleteData("api/players/deleteAll");
+            Application.Exit();
+        }
+
+
+
+
+
+
 
         private async void button1_Click(object sender, EventArgs e)
         {
@@ -174,29 +189,7 @@ namespace Monopoly2019
         }
 
 
-        private PictureBox ShowPlayers(PlayerM.PlayerMono player)
-        {
-            PictureBox playerPic = new PictureBox();
-            if (player.indexP == 0)
-            {
-                playerPic.ImageLocation = "../Content/pawn1.png";
-                playerPic.Size = new Size(20, 20);
-                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 65));
-                playerPic.SizeMode = PictureBoxSizeMode.Zoom;
-                playerPic.BackColor = Color.Transparent;
-
-            }
-            else
-            {
-                playerPic.ImageLocation = "../Content/pawn2.png";
-                playerPic.Size = new Size(20, 20);
-                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 90));
-                playerPic.SizeMode = PictureBoxSizeMode.Zoom;
-                playerPic.BackColor = Color.Transparent;
-            }
-
-            return playerPic;
-        }
+     
 
         private async void ToogleGame(bool Toggle)
         {
@@ -217,26 +210,7 @@ namespace Monopoly2019
         }
 
 
-        private PictureBox ShowDice(int number, int first)
-        {
-            PictureBox DicePic = new PictureBox();
-            if (first == 1)
-            {
-                DicePic.ImageLocation = "../Content/" + number + ".png";
-                DicePic.Size = new Size(20, 20);
-                DicePic.Location = new Point(this.Width - 400, this.Height - 200);
-                DicePic.SizeMode = PictureBoxSizeMode.Zoom;
-                DicePic.BackColor = Color.Transparent;
-            }
-            else {
-                DicePic.ImageLocation = "../Content/" + number + ".png";
-                DicePic.Size = new Size(20, 20);
-                DicePic.Location = new Point(this.Width - 370, this.Height - 200);
-                DicePic.SizeMode = PictureBoxSizeMode.Zoom;
-                DicePic.BackColor = Color.Transparent;
-            }
-            return DicePic;
-        }
+     
 
       
 
@@ -255,65 +229,7 @@ namespace Monopoly2019
                 return playerIndex;
         }
 
-        public int PlayerWithPositionOnBoard(int position)
-        {
-            int playerPosition = 0;
-            int squareWit = (this.Width - 65)/10;
-            //  int squareHei = (this.Height - 65) / 10;
-            if (position <= 10)
-            {
-                playerPosition = this.Width - 65 - position * squareWit;
-            }
-            else if (position <= 20)
-            {
-                playerPosition = 20;
-            }
-            else if (position <= 30)
-            {
-                int positionin = position - 20;
-                playerPosition = 20 + positionin * squareWit;
-            }
-            else {
-                playerPosition = this.Width - 65;
-            }
-
-            return playerPosition;
-        }
-        public int PlayerHeightPositionOnBoard(int position, int height)
-        {
-            int playerPosition = 0;
-            int squareWit = (this.Width - height) / 10;
-            //  int squareHei = (this.Height - 65) / 10;
-            if (position <= 10)
-            {
-                playerPosition = this.Height - height;
-            }
-            else if (position <= 20)
-            {
-                int positionint = position - 10;
-                playerPosition = this.Height - height - positionint * squareWit;
-            }
-            else if (position <= 30)
-            {
-                if (height == 90)
-                {
-                    playerPosition = 20;
-                }
-                else { playerPosition = 45; }
-            }
-            else
-            {
-                int positionint = position - 30;
-                if (height == 90)
-                {
-                    playerPosition = 20+positionint*squareWit;
-                }
-                else { playerPosition = 45 + positionint * squareWit; }
-            }
-
-            return playerPosition;
-        }
-
+      
 
 
 
@@ -355,6 +271,9 @@ namespace Monopoly2019
                         roundButton1.Visible = true;
                         roundButton1.BackgroundImageLayout = ImageLayout.Stretch;
                         currentPlayer.idPlayer = player.idPlayer;
+                        var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  2  ,\"indexP\": " + currentPlayer.indexP + "}";
+                        HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+                        Processor.UpdateData("api/players/action/2", content);
                     }
                 }
 
@@ -367,16 +286,18 @@ namespace Monopoly2019
 
         //-----------------------------RoundButtons-------------------------------------------------
 
-        private void roundButton1_Click(object sender, EventArgs e)
+        private async void roundButton1_Click(object sender, EventArgs e)
         {
+            timer2.Enabled = false;
+            int isStreetIndex;
             int dice1 = rnd.Next(1, 6);
             int dice2 = rnd.Next(1, 6);
             dice1Pic = ShowDice(dice1, 1);
             dice2Pic = ShowDice(dice2, 2);
-            roundButton1.Visible = true;
+            roundButton1.Visible = false;
             roundButton2.Image = Image.FromFile("../Content/EndTurn.png");
             roundButton2.Visible = true;
-            
+            bool exist;
            
             roundButton2.BackgroundImageLayout = ImageLayout.Stretch;
            // roundButton3.BackgroundImageLayout = ImageLayout.Stretch;
@@ -386,17 +307,71 @@ namespace Monopoly2019
             int newPosition = currentPlayer.currentPosition + dice1 + dice2;
             if (newPosition>=40)
             {
+                var payloadGet = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                HttpContent contentGet = new StringContent(payloadGet, Encoding.UTF8, "application/json");
+                Processor.UpdateData("api/players/action/5", contentGet);
                 newPosition = newPosition - 40;
             }
-            if (newPosition!=0 || newPosition != 2 || newPosition != 4 || newPosition != 7 || newPosition != 10 || newPosition != 12 || newPosition != 17)
-            {
-                roundButton3.Image = Image.FromFile("../Content/Buy.png");
-                roundButton3.Visible = true;
-            }
             currentPlayer.currentPosition = newPosition;
+
+            if (newPosition == 0 || newPosition == 10 || newPosition == 20 || newPosition == 30)
+            { 
+            }
+            else if (newPosition == 4 || newPosition == 38)
+            {
+                var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                Processor.UpdateData("api/players/action/4", contentPay);
+            }
+            else if ( newPosition == 2 || newPosition == 7 || newPosition == 17 || newPosition == 22 || newPosition == 33 || newPosition == 36)
+            { 
+
+            }
+            else
+            {
+                isStreetIndex = 0;
+                await Processor.LoadData("api/streets", onSuccess: (data) =>
+                {
+                    
+                    var streetsMon = JsonConvert.DeserializeObject<List<PlayerM.StreetMono>>(data);
+
+                    foreach (var street in streetsMon)
+                    {
+                        if (street.number == newPosition)
+                        {
+                            if (street.fkPlayeridPlayer!=null)
+                            {
+                                isStreetIndex = street.number;
+                            }
+                        }
+                      
+                    }
+                }, onFailure: (error) => { });
+
+
+                if (isStreetIndex == 0)
+                {
+                    roundButton3.Image = Image.FromFile("../Content/Buy.png");
+                    roundButton3.Visible = true;
+                }
+                else
+                {
+                   
+
+                    var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                    HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                    Processor.UpdateData("api/players/action/3", contentPay);
+                   
+                }
+
+              
+            }
+            
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
             Processor.UpdateData("api/players/action/1", content);
+            timer2.Enabled = true;
+
         }
 
         private void roundButton2_Click(object sender, EventArgs e)
@@ -406,9 +381,10 @@ namespace Monopoly2019
             roundButton1.Visible = false;
             roundButton2.Visible = false;
             roundButton3.Visible = false;
+            // Kai turn =0 tai ne žaidėjo ėjimas, kai turn = 1 žaidėjui reikia mesti kauliukus, kai turn =2 tada žaidėjas išmetęs kauliukus ir perka gatvę arba baigia ėjimą
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  0  ,\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            Processor.UpdateData("api/players/endTurn", content);
+            Processor.UpdateData("api/players/action/2", content);
             int anotherPlayerIndex = GivePlayerIndex(currentPlayer.indexP);
             var payload2 = "{\"turn\":  1  ,\"indexP\": " + anotherPlayerIndex + "}";
             HttpContent content2 = new StringContent(payload2, Encoding.UTF8, "application/json");
@@ -418,12 +394,131 @@ namespace Monopoly2019
 
         private void roundButton3_Click(object sender, EventArgs e)
         {
-            var payload = "{\"number\":\"" + currentPlayer.currentPosition + "\",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
-           // var payload = "{\"number\":\"" + currentPlayer.currentPosition + ",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
+            roundButton3.Visible = false;
+            timer2.Enabled = false;
+            //  var payload = "{\"number\":\"" + currentPlayer.currentPosition + "\",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
+            // var payload = "{\"number\":\"" + currentPlayer.currentPosition + ",\"FkPlayeridPlayer\": " + currentPlayer.idPlayer + "}";
+            var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + currentPlayer.currentPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
             HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
-            Processor.UpdateData("api/streets/AssignStreet", content);
-
+            Processor.UpdateData("api/players/action/0", content);
+            //  timer2.Enabled = false;
+            timer2.Enabled = true;
 
         }
+
+
+
+
+        //----------------------------------------------------Show Something-------------------------------------------
+
+
+        private PictureBox ShowDice(int number, int first)
+        {
+            PictureBox DicePic = new PictureBox();
+            if (first == 1)
+            {
+                DicePic.ImageLocation = "../Content/" + number + ".png";
+                DicePic.Size = new Size(20, 20);
+                DicePic.Location = new Point(this.Width - 400, this.Height - 200);
+                DicePic.SizeMode = PictureBoxSizeMode.Zoom;
+                DicePic.BackColor = Color.Transparent;
+            }
+            else
+            {
+                DicePic.ImageLocation = "../Content/" + number + ".png";
+                DicePic.Size = new Size(20, 20);
+                DicePic.Location = new Point(this.Width - 370, this.Height - 200);
+                DicePic.SizeMode = PictureBoxSizeMode.Zoom;
+                DicePic.BackColor = Color.Transparent;
+            }
+            return DicePic;
+        }
+
+        private PictureBox ShowPlayers(PlayerM.PlayerMono player)
+        {
+            PictureBox playerPic = new PictureBox();
+            if (player.indexP == 0)
+            {
+                playerPic.ImageLocation = "../Content/pawn1.png";
+                playerPic.Size = new Size(20, 20);
+                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 65));
+                playerPic.SizeMode = PictureBoxSizeMode.Zoom;
+                playerPic.BackColor = Color.Transparent;
+
+            }
+            else
+            {
+                playerPic.ImageLocation = "../Content/pawn2.png";
+                playerPic.Size = new Size(20, 20);
+                playerPic.Location = new Point(PlayerWithPositionOnBoard(player.currentPosition), PlayerHeightPositionOnBoard(player.currentPosition, 90));
+                playerPic.SizeMode = PictureBoxSizeMode.Zoom;
+                playerPic.BackColor = Color.Transparent;
+            }
+
+            return playerPic;
+        }
+
+        public int PlayerWithPositionOnBoard(int position)
+        {
+            int playerPosition = 0;
+            int squareWit = (this.Width - 65) / 10;
+            //  int squareHei = (this.Height - 65) / 10;
+            if (position <= 10)
+            {
+                playerPosition = this.Width - 65 - position * squareWit;
+            }
+            else if (position <= 20)
+            {
+                playerPosition = 20;
+            }
+            else if (position <= 30)
+            {
+                int positionin = position - 20;
+                playerPosition = 20 + positionin * squareWit;
+            }
+            else
+            {
+                playerPosition = this.Width - 65;
+            }
+
+            return playerPosition;
+        }
+        public int PlayerHeightPositionOnBoard(int position, int height)
+        {
+            int playerPosition = 0;
+            int squareWit = (this.Width - height) / 10;
+            //  int squareHei = (this.Height - 65) / 10;
+            if (position <= 10)
+            {
+                playerPosition = this.Height - height;
+            }
+            else if (position <= 20)
+            {
+                int positionint = position - 10;
+                playerPosition = this.Height - height - positionint * squareWit;
+            }
+            else if (position <= 30)
+            {
+                if (height == 90)
+                {
+                    playerPosition = 20;
+                }
+                else { playerPosition = 45; }
+            }
+            else
+            {
+                int positionint = position - 30;
+                if (height == 90)
+                {
+                    playerPosition = 20 + positionint * squareWit;
+                }
+                else { playerPosition = 45 + positionint * squareWit; }
+            }
+
+            return playerPosition;
+        }
+
+
+
     }
 }

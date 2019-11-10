@@ -9,9 +9,12 @@ namespace server2.Models
         public Player()
         {
             Streets = new HashSet<Street>();
-            addStrategy(new BuyStreet());
-            addStrategy(new DropDices());
-            addStrategy(new EndTurn());
+            addStrategy(new BuyStreet());  //0
+            addStrategy(new DropDices());  //1
+            addStrategy(new EndTurn());    //2
+            addStrategy(new PayToOther()); //3
+            addStrategy(new PayTax());     //4
+            addStrategy(new PassedGo());   //5
         }
 
         public string Name { get; set; }
@@ -31,9 +34,9 @@ namespace server2.Models
         {
             this.actions.Add(s);
         }
-         public void Act(int index, Player play)
+         public void Act(int index, Player play, monopolisContext _context)
         {
-           actions[index].operation(play, this);
+           actions[index].operation(play, this, _context);
         }
 
     }

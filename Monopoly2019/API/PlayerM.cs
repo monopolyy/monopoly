@@ -35,10 +35,29 @@ namespace Monopoly2019.API
             public int idPlayer { get; set; }
             // [JsonProperty(PropertyName = "foods")]
             public List<Street> streets { get; set; }
-
-
-
-
         }
+
+
+        [Serializable]
+        public class StreetMono
+        {
+
+            [JsonProperty(PropertyName = "name")]
+            public string name { get; set; }
+            [JsonProperty(PropertyName = "neighbourHood")]
+            public int neighbourHood { get; set; }
+            [JsonProperty(PropertyName = "price")]
+            public int price { get; set; }
+            [JsonProperty(PropertyName = "rent")]
+            public bool rent { get; set; }
+
+            [JsonProperty(PropertyName = "number")]
+            public int number { get; set; }
+
+            [JsonProperty(PropertyName = "fkPlayeridPlayer")]
+            public Nullable<int> fkPlayeridPlayer { get; set; }
+         
+        }
+
     }
 }

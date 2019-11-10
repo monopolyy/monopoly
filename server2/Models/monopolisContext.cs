@@ -112,6 +112,8 @@ namespace server2.Models
                 entity.Property(e => e.IdTax).HasColumnName("id_Tax");
 
                 entity.Property(e => e.TaxAmount).HasColumnName("taxAmount");
+
+                entity.Property(e => e.Number).HasColumnName("number");
             });
 
             modelBuilder.Entity<Tile>(entity =>

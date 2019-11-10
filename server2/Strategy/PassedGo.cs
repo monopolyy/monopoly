@@ -6,14 +6,14 @@ using server2.Models;
 
 namespace server2.Strategy
 {
-    public class DropDices: StrategyAlgo
+    public class PassedGo : StrategyAlgo
     {
         public override Player operation(Player player, Player OriginalPlayer, monopolisContext _context)
         {
+           
+            OriginalPlayer.MoneyP = OriginalPlayer.MoneyP + 200;
 
-            OriginalPlayer.CurrentPosition = player.CurrentPosition;
             return OriginalPlayer;
-
         }
     }
 }
