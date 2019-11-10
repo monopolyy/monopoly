@@ -28,7 +28,8 @@ namespace Monopoly2019.Controller
         {
             graphics = new GraphicsDeviceManager(this);
             //Content.RootDirectory = "E:/AA KTU failai/4 metai/7 semestras/Objektinis programų projektavimas/Monopoly2019/Monopoly2019/Content";
-            Content.RootDirectory = "C:/xampp/htdocs/monopoly/Monopoly2019/Content";
+            Content.RootDirectory = "D:/KTU studijos/4 kursas/1 pusmetis/oop/monopoly/Monopoly2019/Content";
+           // Content.RootDirectory = "C:/xampp/htdocs/monopoly/Monopoly2019/Content";
             IsMouseVisible = true;
             graphics.PreferredBackBufferHeight = 700;
             graphics.PreferredBackBufferWidth = 700;
