@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using server2.Models;
 
 namespace server2.Builder
 {
     public class HouseBuildDirector
     {
-        private IHouseBuilder _builder;
-      
-        public void Construct()
+        public void Construct(HouseBuilder housebuilder)
         {
-            _builder.NumberOfHouses = 1;
+            housebuilder.BuildBilling();
+            housebuilder.BuildHouse();
+            housebuilder.BuildName();
+            housebuilder.BuildPrice();
         }
     }
 }

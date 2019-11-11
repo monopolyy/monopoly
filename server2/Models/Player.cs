@@ -43,5 +43,6 @@ namespace server2.Models
         {
             Console.WriteLine("Player: {0} was notified about street {1} owner changes", this.Name, (street as Street).Name);
         }
+
     }
 }

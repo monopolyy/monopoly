@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using server2.Models;
 
 namespace server2.Builder
 {
-    public class HouseBuilder : IHouseBuilder
+    public abstract class HouseBuilder 
     {
-        public int NumberOfHouses { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public int Billing { get; set; }
-        public House GetResult()
+        protected House house;
+        public House House
         {
-            return NumberOfHouses == 1 ? new House(Name, Price, Billing, NumberOfHouses) : null;
-
+            get { return house; }
         }
+        public abstract void BuildHouse();
+        public abstract void BuildName();
+        public abstract void BuildPrice();
+        public abstract void BuildBilling();
     }
 }
