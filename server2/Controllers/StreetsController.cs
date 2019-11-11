@@ -91,6 +91,7 @@ namespace server2.Controllers
             var streett = _context.Street.First(st => st.Number == street.Number);
             streett.FkPlayeridPlayer = street.FkPlayeridPlayer;
 
+            street.SomeActions();
 
             await _context.SaveChangesAsync();
 
