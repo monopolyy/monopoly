@@ -35,6 +35,8 @@ namespace Monopoly2019
             InitializeComponent();
             ApiHelper.InitializeClient();
             label2.Visible = false;
+            label3.Visible = false;
+            label4.Visible = false;
             roundButton1.Visible = false;
             roundButton2.Visible = false;
             roundButton3.Visible = false;
@@ -260,6 +262,17 @@ namespace Monopoly2019
                 //    Controls.Add(play);
                     if (player.indexP == currentPlayer.indexP && player.turn == 1)
                     {
+                        if (player.indexP == 0)
+                        {
+                            label3.Text = "this is You";
+                            label3.Visible = true;
+                        }
+                        else
+                        {
+                            label4.Text = "this is You";
+                            label4.Visible = true;
+                        }
+
                         roundButton1.Image = Image.FromFile("../Content/Active.png");
                         roundButton1.Visible = true;
                         roundButton1.BackgroundImageLayout = ImageLayout.Stretch;
@@ -378,6 +391,7 @@ namespace Monopoly2019
             dice2Pic.Visible = false;
             roundButton1.Visible = false;
             roundButton2.Visible = false;
+            roundButton4.Visible = false;
             roundButton3.Visible = false;
             // Kai turn =0 tai ne žaidėjo ėjimas, kai turn = 1 žaidėjui reikia mesti kauliukus, kai turn =2 tada žaidėjas išmetęs kauliukus ir perka gatvę arba baigia ėjimą
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  0  ,\"indexP\": " + currentPlayer.indexP + "}";
