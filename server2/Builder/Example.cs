@@ -11,7 +11,7 @@ namespace server2.Builder
         public void build()
         {
             var builder = new HouseBuilder();
-            var director = new HouseBuildDirector(builder);
+           // var director = new HouseBuildDirector(builder);
 
             director.Construct();
             House myHouse = builder.GetResult();
