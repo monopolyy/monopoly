@@ -7,9 +7,9 @@ namespace server2.Builder
 {
     public class ConcreteHouseBuilder : HouseBuilder
     {
-        public ConcreteHouseBuilder()
+        public ConcreteHouseBuilder(House housee)
         {
-            house = new House("",0,0,0);
+            house = new House(house.Name,house.Price,house.Billing,0);
         }
         public override void BuildHouse()
         {
@@ -17,15 +17,15 @@ namespace server2.Builder
         }
         public override void BuildPrice()
         {
-            House.Price = 20000;
+            House.Price = house.Price;
         }
         public override void BuildBilling()
         {
-            House.Billing = 5000;
+            House.Billing = house.Billing + 150;
         }
         public override void BuildName()
         {
-            House.Name = "BMW";
+            House.Name = house.Name;
 
         }
     }

@@ -30,6 +30,16 @@ namespace server2.Strategy
                 streett.Price = house.Price;
                 streett.Rent = house.Billing;
             }
+            else if (streett.Level == 0)
+            {
+                HouseBuilder builder;
+                HouseBuildDirector director = new HouseBuildDirector();
+
+                builder = new ConcreteHouseBuilder(house);
+                director.Construct(builder);
+                streett.Level = builder.House.NumberOfHouses;
+                //streett.Level = 1;
+            }
             else
             {
                 streett.Level = streett.Level + 1;
