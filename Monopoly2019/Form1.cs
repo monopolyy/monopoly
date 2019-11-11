@@ -497,8 +497,8 @@ namespace Monopoly2019
         public int PlayerHeightPositionOnBoard(int position, int height)
         {
             int playerPosition = 0;
-            int squareWit = (this.Width - height - 60) / 10;
-            //  int squareHei = (this.Height - 65) / 10;
+          //  int squareWit = (this.Height - height ) / 10;
+              int squareHei = (this.Height -50)  / 13;
             if (position <= 10)
             {
                 playerPosition = this.Height - height;
@@ -506,7 +506,9 @@ namespace Monopoly2019
             else if (position <= 20)
             {
                 int positionint = position - 10;
-                playerPosition = this.Height - height- 10  - positionint * squareWit;
+                int posfromtop = 11 - positionint;
+                // playerPosition = this.Height - height- 10  - positionint * squareWit;
+                playerPosition = 20 + posfromtop * squareHei;
             }
             else if (position <= 30)
             {
@@ -521,9 +523,18 @@ namespace Monopoly2019
                 int positionint = position - 30;
                 if (height == 90)
                 {
-                    playerPosition = 50 + positionint * squareWit;
+                    int posfromtop = positionint + 1;
+                    // playerPosition = this.Height - height- 10  - positionint * squareWit;
+                    playerPosition = 20 + posfromtop * squareHei;
+                    // playerPosition = 50 + positionint * squareHei;
                 }
-                else { playerPosition = 75 + positionint * squareWit; }
+                else
+                {
+
+                    int posfromtop = positionint + 1;
+                    playerPosition = 40 + posfromtop * squareHei;
+                }
+                  //  playerPosition = 75 + positionint * squareHei; }
             }
 
             return playerPosition;

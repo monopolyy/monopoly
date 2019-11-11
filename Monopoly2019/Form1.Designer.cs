@@ -36,11 +36,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.roundButton4 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton3 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton2 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton1 = new Monopoly2019.Model.Buttons.RoundButton();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // button1
@@ -92,7 +92,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(290, 184);
+            this.label2.Location = new System.Drawing.Point(333, 224);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
@@ -103,6 +103,13 @@
             // 
             this.timer2.Interval = 500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(50, 70);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 3;
             // 
             // roundButton4
             // 
@@ -144,13 +151,6 @@
             this.roundButton1.Text = "roundButton1";
             this.roundButton1.UseVisualStyleBackColor = true;
             this.roundButton1.Click += new System.EventHandler(this.roundButton1_Click);
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(50, 70);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 3;
             // 
             // Form1
             // 
