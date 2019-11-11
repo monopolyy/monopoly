@@ -25,7 +25,7 @@ namespace server2.Models
         // GET: api/Players
         [HttpGet]
         public IEnumerable<Player> GetPlayer()
-       {
+        {
             return _context.Player;
         }
 

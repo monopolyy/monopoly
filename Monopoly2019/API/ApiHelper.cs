@@ -9,7 +9,7 @@ using System.Net.Http;
 
 namespace Monopoly2019.API
 {
-   public static class ApiHelper
+   public static class ApiHelper // Singleton
     {
         public static HttpClient ApiClient { get; set; }
 
@@ -19,6 +19,5 @@ namespace Monopoly2019.API
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
     }
 }
