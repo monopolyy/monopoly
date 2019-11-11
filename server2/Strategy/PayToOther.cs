@@ -53,7 +53,7 @@ namespace server2.Strategy
                         {
                             component = new Star2nd(component);
                         }
-                        else {
+                        else if (i>2) {
                             component = new Star3rd(component);
                         }
                     }

@@ -16,6 +16,7 @@ namespace Monopoly2019.API
         public static void InitializeClient()
         {
             ApiClient = new HttpClient { BaseAddress = new Uri("https://localhost:44313/") };
+            //  ApiClient = new HttpClient { BaseAddress = new Uri("http://monopolisgame.azurewebsites.net/") };
             ApiClient.DefaultRequestHeaders.Accept.Clear();
             ApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
