@@ -40,9 +40,14 @@ namespace Monopoly2019
         }
 
 
-        //-------------------------------i6jungti viska-------------------------
+        //-------------------------------isjungti viska-------------------------
         private void button2_Click(object sender, EventArgs e)
         {
+
+            var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  2  ,\"indexP\": " + currentPlayer.indexP + "}";
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+            Processor.UpdateData("api/streets/DeleteStreetsTags", content);
+
             Processor.DeleteData("api/players/deleteAll");
 
 
@@ -52,7 +57,7 @@ namespace Monopoly2019
 
         private void OnFormClosed(object sender, FormClosedEventArgs e)
         {
-            Processor.DeleteData("api/players/deleteAll");
+           // Processor.DeleteData("api/players/deleteAll");
             Application.Exit();
         }
 
@@ -61,7 +66,7 @@ namespace Monopoly2019
 
 
 
-
+        //-------------------------------------------Prisijungimas prie serverio-------------------------------------------
         private async void button1_Click(object sender, EventArgs e)
         {
 
@@ -140,7 +145,19 @@ namespace Monopoly2019
         {
 
         }
+        private void Form1_Load(object sender, EventArgs e)
+        {
 
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+        }
+
+
+
+
+        //-------------------------------------------timer1 funkcija-------------
         private async void getnewest()
         {
             await Processor.LoadData("api/players", onSuccess: (data) =>
@@ -183,14 +200,6 @@ namespace Monopoly2019
             }, onFailure: (error) => { });
         }
 
-    
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-        }
-
-
-     
 
         private async void ToogleGame(bool Toggle)
         {
@@ -198,39 +207,10 @@ namespace Monopoly2019
             button1.Visible = Toggle;
             label1.Visible = Toggle;
             textBox2.Visible = Toggle;
-            button2.Visible = Toggle;
+          //  button2.Visible = Toggle;
         }
 
        
-
-      
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-
-     
-
-      
-
-
-        public int GivePlayerIndex(int index)
-        {
-            int playerIndex;
-            index++;
-            if (index > playerSnumber - 1)
-            {
-                playerIndex = 0;
-            }
-            else { playerIndex = index; }
-           
-
-                return playerIndex;
-        }
-
-      
 
 
 
@@ -342,7 +322,12 @@ namespace Monopoly2019
                         {
                             if (street.fkPlayeridPlayer!=null)
                             {
-                                isStreetIndex = street.number;
+
+                                if (street.fkPlayeridPlayer == currentPlayer.idPlayer)
+                                {
+                                    roundButton4.Visible = true;
+                                }
+                                else { isStreetIndex = street.number; }
                             }
                         }
                       
@@ -393,6 +378,22 @@ namespace Monopoly2019
           //  timer2.Interval = 1000;
         }
 
+
+
+        public int GivePlayerIndex(int index)
+        {
+            int playerIndex;
+            index++;
+            if (index > playerSnumber - 1)
+            {
+                playerIndex = 0;
+            }
+            else { playerIndex = index; }
+
+
+            return playerIndex;
+        }
+
         private void roundButton3_Click(object sender, EventArgs e)
         {
             roundButton3.Visible = false;
@@ -404,10 +405,19 @@ namespace Monopoly2019
             Processor.UpdateData("api/players/action/0", content);
             //  timer2.Enabled = false;
             timer2.Enabled = true;
+          
 
         }
 
-
+        private void roundButton4_Click(object sender, EventArgs e)
+        {
+            roundButton4.Visible = false;
+            timer2.Enabled = false;
+            var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + currentPlayer.currentPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+            Processor.UpdateData("api/players/action/6", content);
+            timer2.Enabled = true;
+        }
 
 
         //----------------------------------------------------Show Something-------------------------------------------
@@ -487,8 +497,8 @@ namespace Monopoly2019
         public int PlayerHeightPositionOnBoard(int position, int height)
         {
             int playerPosition = 0;
-            int squareWit = (this.Width - height - 60) / 10;
-            //  int squareHei = (this.Height - 65) / 10;
+          //  int squareWit = (this.Height - height ) / 10;
+              int squareHei = (this.Height -50)  / 13;
             if (position <= 10)
             {
                 playerPosition = this.Height - height;
@@ -496,7 +506,9 @@ namespace Monopoly2019
             else if (position <= 20)
             {
                 int positionint = position - 10;
-                playerPosition = this.Height - height- 10  - positionint * squareWit;
+                int posfromtop = 11 - positionint;
+                // playerPosition = this.Height - height- 10  - positionint * squareWit;
+                playerPosition = 20 + posfromtop * squareHei;
             }
             else if (position <= 30)
             {
@@ -511,17 +523,23 @@ namespace Monopoly2019
                 int positionint = position - 30;
                 if (height == 90)
                 {
-                    playerPosition = 50 + positionint * squareWit;
+                    int posfromtop = positionint + 1;
+                    // playerPosition = this.Height - height- 10  - positionint * squareWit;
+                    playerPosition = 20 + posfromtop * squareHei;
+                    // playerPosition = 50 + positionint * squareHei;
                 }
-                else { playerPosition = 75 + positionint * squareWit; }
+                else
+                {
+
+                    int posfromtop = positionint + 1;
+                    playerPosition = 40 + posfromtop * squareHei;
+                }
+                  //  playerPosition = 75 + positionint * squareHei; }
             }
 
             return playerPosition;
         }
 
-        private void roundButton4_Click(object sender, EventArgs e)
-        {
-
-        }
+        
     }
 }

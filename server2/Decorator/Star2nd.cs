@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 
 namespace server2.Decorator
 {
-    public class Star : Decorator
+    public class Star2nd : Decorator
     {
-        public Star(WholeStreet decorator) : base(decorator) { 
-        
+        public Star2nd(WholeStreet decorator) : base(decorator)
+        {
+
         }
 
         public override int GetPrice(int innerResult)
         {
-            return innerResult * (2*2*2);
+            return innerResult * (2 * 2);
         }
     }
 }

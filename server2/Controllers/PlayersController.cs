@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using server2.Controllers;
 
 namespace server2.Models
 {
@@ -13,10 +14,12 @@ namespace server2.Models
     public class PlayersController : ControllerBase
     {
         private readonly monopolisContext _context;
-
+        private IEnumerable<Street> streets;
         public PlayersController(monopolisContext context)
         {
             _context = context;
+            StreetsController strcntrl = new StreetsController(_context);
+            streets = strcntrl.GetStreets();
         }
 
         // GET: api/Players
@@ -60,7 +63,10 @@ namespace server2.Models
             }
 
             _context.Entry(player).State = EntityState.Modified;
-
+            foreach (Street str in streets)
+            {
+                str.Attach(player);
+            }
             try
             {
                 await _context.SaveChangesAsync();
@@ -107,7 +113,7 @@ namespace server2.Models
 
 
 
-    /*    [HttpDelete("deleteAll")]
+        [HttpDelete("deleteAll")]
         public async Task<IActionResult> DeleteAllPlayers()
         {
             if (!ModelState.IsValid)
@@ -124,7 +130,7 @@ namespace server2.Models
             await _context.SaveChangesAsync();
 
             return Ok();
-        }*/
+        }
 
 
 

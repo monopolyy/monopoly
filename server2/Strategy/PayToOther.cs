@@ -11,7 +11,9 @@ namespace server2.Strategy
     {
         public override Player operation(Player player, Player OriginalPlayer, monopolisContext _context)
         {
-           
+
+            
+
             int pay = 0;
             int pos = player.CurrentPosition;
             var streett = _context.Street.First(st => st.Number == pos);
@@ -20,23 +22,43 @@ namespace server2.Strategy
                 return OriginalPlayer;
             }
             var anotherPlayer = _context.Player.First(pl => pl.IdPlayer == streett.FkPlayeridPlayer);
-
-            if (streett.Level == 1)
-            {
-                pay = streett.Rent;
-            }
-            else
-            {
-                WholeStreet component = new Star(streett);
-                for (int i = 0; i < streett.Level - 1; i++)
+            if (streett.Number ==5 || streett.Number == 15 || streett.Number == 25 || streett.Number == 35 ) {
+                int count = _context.Street.Where(st => st.NeighbourHood == 9 && st.FkPlayeridPlayer == anotherPlayer.IdPlayer).Count();
+                if (count == 1)
                 {
-                    if (i > 0)
-                    {
-                        component = new Star(component);
-                    }
+                    pay = streett.Rent;
                 }
-                pay = component.GetCost();
+                else {
+                    WholeStreet component = new StationsDecorate(streett);
+                    for (int i = 0; i < count - 1; i++)
+                    {
+                        if (i > 1)
+                        {
+                            component = new StationsDecorate(component);
+                        }
+                    }
+                    pay = component.GetCost();
+                }
             }
+            else { if (streett.Level == 1)
+                {
+                    pay = streett.Rent;
+                }
+                else
+                {
+                    WholeStreet component = new Star(streett);
+                    for (int i = 0; i < streett.Level - 1; i++)
+                    {
+                        if (i ==2)
+                        {
+                            component = new Star2nd(component);
+                        }
+                        else {
+                            component = new Star3rd(component);
+                        }
+                    }
+                    pay = component.GetCost();
+                } }
 
 
 
