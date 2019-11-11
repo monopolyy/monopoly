@@ -11,6 +11,13 @@ namespace server2.Builder // and Prototype too
         public int Price { get; set; }
         public int Billing { get; set; }
         public int NumberOfHouses { get; set; }
+        public House()
+        {
+            Name = "";
+            Price = 0;
+            Billing = 0;
+            NumberOfHouses = 0;
+        }
         public House(string name, int price, int billing, int numberofhouses)
         {
             Name = name;

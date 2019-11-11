@@ -10,17 +10,20 @@ namespace server2.Strategy
 {
     public class UpdateLevel:StrategyAlgo
     {
+        House housePattern = new House();
         public override Player operation(Player player, Player OriginalPlayer, monopolisContext _context)
         {
 
             int pos = OriginalPlayer.CurrentPosition;
             var streett = _context.Street.First(st => st.Number == pos);
             //var streett = controller.GetStreetByNum(pos);
-            
+
             //  OriginalPlayer.Streets.Add(streett);
             // OriginalPlayer.MoneyP = OriginalPlayer.MoneyP - streett.Price;
 
-            House house = new House(streett.Name,streett.Price,streett.Rent,streett.Level);
+            //House house = new House(streett.Name,streett.Price,streett.Rent,streett.Level);
+            House house = housePattern.DeepCopy(streett.Name, streett.Price, streett.Rent, streett.Level);
+            Console.WriteLine("{0} {1} {2} {3}", house.Name, house.Price, house.Billing, house.NumberOfHouses);
             
             if(streett.Level == 4)
             {
