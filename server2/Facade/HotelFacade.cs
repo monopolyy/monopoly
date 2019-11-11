@@ -22,9 +22,9 @@ namespace server2.Facade
         public void CreateCompleteCar(House house)
         {
             Console.WriteLine("******** Creating a Hotel **********");
-            name.SetName(house,"Name");
-            price.SetPrice(house,100000);
-            billing.SetHotelBilling(house,25000);
+            name.SetName(house);
+            price.SetPrice(house);
+            billing.SetHotelBilling(house);
 
             Console.WriteLine("******** Hotel creation is completed. **********");
         }

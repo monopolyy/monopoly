@@ -9,9 +9,9 @@ namespace server2.Facade
 {
     public class HotelName
     {
-        public void SetName(House house,string Name)
+        public void SetName(House house)
         {
-            house.Name = Name;
+            house.Name = house.Name;
         }
     }
 }

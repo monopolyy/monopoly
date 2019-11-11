@@ -8,9 +8,9 @@ namespace server2.Facade
 {
     public class HotelPrice
     {
-        public void SetPrice(House house,int Price)
+        public void SetPrice(House house)
         {
-            house.Price = Price;
+            house.Price = house.Price +200;
         }
     }
 }
