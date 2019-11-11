@@ -107,7 +107,7 @@ namespace server2.Models
 
 
 
-    /*    [HttpDelete("deleteAll")]
+        [HttpDelete("deleteAll")]
         public async Task<IActionResult> DeleteAllPlayers()
         {
             if (!ModelState.IsValid)
@@ -124,7 +124,7 @@ namespace server2.Models
             await _context.SaveChangesAsync();
 
             return Ok();
-        }*/
+        }
 
 
 

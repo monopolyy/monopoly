@@ -61,7 +61,7 @@ namespace server2.Controllers
 
 
         // PUT: api/Streets/5
-        [HttpPut("{id}")]
+        [HttpPut("DeleteStreetsTags")]
         public async Task<IActionResult> PutStreet([FromRoute] int id, [FromBody] Street street)
         {
             if (!ModelState.IsValid)
@@ -69,30 +69,13 @@ namespace server2.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != street.IdStreets)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(street).State = EntityState.Modified;
+            foreach (var entity in _context.Street)
+                entity.FkPlayeridPlayer = null;
+  
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StreetExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            return Ok();
         }
 
 
@@ -114,6 +97,9 @@ namespace server2.Controllers
 
             return Ok();
         }
+
+
+
 
 
         // POST: api/Streets

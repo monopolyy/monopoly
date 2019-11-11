@@ -36,11 +36,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.roundButton4 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton3 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton2 = new Monopoly2019.Model.Buttons.RoundButton();
             this.roundButton1 = new Monopoly2019.Model.Buttons.RoundButton();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.roundButton4 = new Monopoly2019.Model.Buttons.RoundButton();
             this.SuspendLayout();
             // 
             // button1
@@ -56,7 +56,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(643, 21);
+            this.button2.Location = new System.Drawing.Point(461, 99);
             this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(95, 22);
@@ -104,6 +104,16 @@
             this.timer2.Interval = 500;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // roundButton4
+            // 
+            this.roundButton4.Location = new System.Drawing.Point(460, 417);
+            this.roundButton4.Name = "roundButton4";
+            this.roundButton4.Size = new System.Drawing.Size(63, 58);
+            this.roundButton4.TabIndex = 10;
+            this.roundButton4.Text = "Upgrade House";
+            this.roundButton4.UseVisualStyleBackColor = true;
+            this.roundButton4.Click += new System.EventHandler(this.roundButton4_Click);
+            // 
             // roundButton3
             // 
             this.roundButton3.Location = new System.Drawing.Point(428, 481);
@@ -137,20 +147,10 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(550, 437);
+            this.textBox2.Location = new System.Drawing.Point(50, 70);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(100, 20);
             this.textBox2.TabIndex = 3;
-            // 
-            // roundButton4
-            // 
-            this.roundButton4.Location = new System.Drawing.Point(460, 417);
-            this.roundButton4.Name = "roundButton4";
-            this.roundButton4.Size = new System.Drawing.Size(63, 58);
-            this.roundButton4.TabIndex = 10;
-            this.roundButton4.Text = "Upgrade House";
-            this.roundButton4.UseVisualStyleBackColor = true;
-            this.roundButton4.Click += new System.EventHandler(this.roundButton4_Click);
             // 
             // Form1
             // 
@@ -188,8 +188,8 @@
         private Model.Buttons.RoundButton roundButton1;
         private Model.Buttons.RoundButton roundButton2;
         private Model.Buttons.RoundButton roundButton3;
-        private System.Windows.Forms.TextBox textBox2;
         private Model.Buttons.RoundButton roundButton4;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }
 
