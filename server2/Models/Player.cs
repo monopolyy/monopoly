@@ -16,6 +16,7 @@ namespace server2.Models
             addStrategy(new PayToOther()); //3
             addStrategy(new PayTax());     //4
             addStrategy(new PassedGo());   //5
+            addStrategy(new UpdateLevel());   //6
         }
 
         public string Name { get; set; }

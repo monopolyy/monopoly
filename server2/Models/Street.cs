@@ -23,7 +23,7 @@ namespace server2.Models
 
         public override int GetCost()
         {
-            return this.Price;
+            return this.Rent;
         }
 
         private List<IObserver> _observers = new List<IObserver>();
