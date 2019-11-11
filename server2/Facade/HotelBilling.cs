@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace server2.Facade
 {
-    public class HotelName
+    public class HotelBilling
     {
-        public void SetName(House house,string Name)
+        public void SetHotelBilling(House house,int Billing)
         {
-            house.Name = Name;
+            house.Billing = Billing;
+            
         }
     }
 }

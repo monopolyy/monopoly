@@ -1,4 +1,5 @@
-﻿using System;
+﻿using server2.Builder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ namespace server2.Facade
 {
     public class HotelPrice
     {
-        public void SetPrice()
+        public void SetPrice(House house,int Price)
         {
-            Console.WriteLine(" HotelPrice - SetPrice");
+            house.Price = Price;
         }
     }
 }
