@@ -15,13 +15,25 @@ namespace server2.Models
     {
         private readonly monopolisContext _context;
         private IEnumerable<Street> streets;
+        private static PlayersController instance = null;
+        private static readonly object threadLock = new object(); // lock token
         public PlayersController(monopolisContext context)
         {
             _context = context;
             StreetsController strcntrl = new StreetsController(_context);
             streets = strcntrl.GetStreets();
         }
-
+        public static PlayersController getInstance(monopolisContext context)
+        {
+            lock (threadLock)
+            {
+                if (instance == null)
+                {
+                    instance = new PlayersController(context);
+                }
+            }
+            return instance;
+        }
         // GET: api/Players
         [HttpGet]
         public IEnumerable<Player> GetPlayer()

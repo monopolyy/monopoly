@@ -26,7 +26,9 @@ namespace Monopoly2019
         PictureBox dice2Pic = new PictureBox();
         const int playerSnumber = 2;
         List<PictureBox> playerDisplay = new List<PictureBox>();
-        
+
+        private static Form1 instance = null;
+        private static readonly object threadLock = new object(); // lock token
 
         public Form1()
         {
@@ -38,7 +40,17 @@ namespace Monopoly2019
             roundButton3.Visible = false;
             roundButton4.Visible = false;
         }
-
+        public static Form1 getInstance()
+        {
+            lock (threadLock)
+            {
+                if (instance == null)
+                {
+                    instance = new Form1();
+                }
+            }
+            return instance;
+        }
 
         //-------------------------------isjungti viska-------------------------
         private void button2_Click(object sender, EventArgs e)

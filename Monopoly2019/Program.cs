@@ -11,12 +11,14 @@ namespace Monopoly2019
         // <summary>
         // The main entry point for the application.
         //</summary>
-      //  [STAThread]
+        //  [STAThread]
+        public static Form1 Game = Form1.getInstance();
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            //Application.Run(new Form1());
+            Application.Run(Game);
         }
     }
 }
