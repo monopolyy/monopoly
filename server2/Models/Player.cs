@@ -2,23 +2,17 @@
 using System.Collections.Generic;
 using server2.Strategy;
 using server2.Observer;
+//using server2.Adapter;
 
 namespace server2.Models
 {
     public partial class Player : IObserver
     {
-        public Player()
+        /*public Player(string name, int currentposition, int indexp, bool isinjail, int turn, int moneyp, int idplayer,
+            ICollection<Street> streets, List<StrategyAlgo> actions, StrategyAlgo activestrategy)
         {
-            Streets = new HashSet<Street>();
-            addStrategy(new BuyStreet());  //0
-            addStrategy(new DropDices());  //1
-            addStrategy(new EndTurn());    //2
-            addStrategy(new PayToOther()); //3
-            addStrategy(new PayTax());     //4
-            addStrategy(new PassedGo());   //5
-            addStrategy(new UpdateLevel());   //6
-        }
 
+        }*/
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
         public int IndexP { get; set; }
@@ -32,6 +26,18 @@ namespace server2.Models
         private  List<StrategyAlgo> actions = new List<StrategyAlgo>();
 
         private StrategyAlgo activeStrategy;
+
+        public Player()
+        {
+            Streets = new HashSet<Street>();
+            addStrategy(new BuyStreet());  //0
+            addStrategy(new DropDices());  //1
+            addStrategy(new EndTurn());    //2
+            addStrategy(new PayToOther()); //3
+            addStrategy(new PayTax());     //4
+            addStrategy(new PassedGo());   //5
+            addStrategy(new UpdateLevel());   //6
+        }
         private void addStrategy(StrategyAlgo s)
         {
             this.actions.Add(s);
@@ -40,6 +46,7 @@ namespace server2.Models
         {
            actions[index].operation(play, this, _context);
         }
+
         public void Update(IStreet street)
         {
             Console.WriteLine("Player: {0} was notified about street {1} owner changes", this.Name, (street as Street).Name);
