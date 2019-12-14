@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using server2.Strategy;
 using server2.Observer;
+using server2.State;
 //using server2.Adapter;
 
 namespace server2.Models
@@ -16,7 +17,7 @@ namespace server2.Models
         public string Name { get; set; }
         public int CurrentPosition { get; set; }
         public int IndexP { get; set; }
-        public bool IsInJail { get; set; }
+        public int State { get; set; }
         public int Turn { get; set; }
         public int MoneyP { get; set; }
         public int IdPlayer { get; set; }
@@ -25,8 +26,13 @@ namespace server2.Models
 
         private  List<StrategyAlgo> actions = new List<StrategyAlgo>();
 
-        private StrategyAlgo activeStrategy;
+        PlayerState normalState = new Normal();
+        
+        PlayerState JailState = new IsInJail();
+        PlayerState ParkingState = new Parking();
+        PlayerState isBankrupt = new IsBankrupt();
 
+        PlayerState currentState;
         public Player()
         {
             Streets = new HashSet<Street>();
@@ -37,6 +43,18 @@ namespace server2.Models
             addStrategy(new PayTax());     //4
             addStrategy(new PassedGo());   //5
             addStrategy(new UpdateLevel());   //6
+            addStrategy(new Chance());   //7
+            addStrategy(new Cummunity());   //8
+            addStrategy(new GoToJail());   //9
+            addStrategy(new GetOutOfJail());//10   
+            addStrategy(new hasBankrupted());//11   
+
+            normalState.addActions(actions);
+            JailState.addActions(actions);
+            ParkingState.addActions(actions);
+            isBankrupt.addActions(actions);
+            currentState = normalState;
+
         }
         private void addStrategy(StrategyAlgo s)
         {
@@ -45,6 +63,28 @@ namespace server2.Models
          public void Act(int index, Player play, monopolisContext _context)
         {
            actions[index].operation(play, this, _context);
+        }
+
+        public Player GetState(int index, Player play, monopolisContext _context)
+        {            
+            if (index ==9 )
+            {
+                currentState = JailState;
+                this.State = 1;
+            }
+            if (index == 10)
+            {
+                currentState = normalState;
+                this.State = 0;
+            }
+            if (this.MoneyP <-100)
+            {
+                currentState = isBankrupt;
+                this.State = 0;
+            }
+            currentState.handle(index, play,this, _context);
+
+            return this;
         }
 
         public void Update(IStreet street)

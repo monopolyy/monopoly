@@ -23,8 +23,10 @@ namespace Monopoly2019.API
             public int currentPosition { get;  set; }
             [JsonProperty(PropertyName = "indexP")]
             public int indexP { get;  set; }
-            [JsonProperty(PropertyName = "isInJail")]
-            public bool isInJail { get;  set; }
+            [JsonProperty(PropertyName = "state")]
+            public int state { get;  set; }
+
+
 
             [JsonProperty(PropertyName = "turn")]
             public int turn { get; set; }

@@ -17,11 +17,17 @@ namespace server2.Models
         private IEnumerable<Street> streets;
         private static PlayersController instance = null;
         private static readonly object threadLock = new object(); // lock token
+       // private Data datas;
+
+        List<Player> players = new List<Player>();
         public PlayersController(monopolisContext context)
         {
+           // List<Player> players 
             _context = context;
             StreetsController strcntrl = new StreetsController(_context);
             streets = strcntrl.GetStreets();
+          
+
         }
         public static PlayersController getInstance(monopolisContext context)
         {
@@ -30,6 +36,7 @@ namespace server2.Models
                 if (instance == null)
                 {
                     instance = new PlayersController(context);
+                    
                 }
             }
             return instance;
@@ -106,15 +113,21 @@ namespace server2.Models
             {
                 return BadRequest(ModelState);
             }
-
-       
-            
-            
-            var playee = _context.Player.First(pl => pl.IndexP == player.IndexP);
-
-             playee.Act(act, player, _context);
+            var playee=Data.playees.First(pl => pl.IndexP == player.IndexP);
 
 
+
+
+           
+
+            //  playee.Act(act, player, _context);
+            playee = playee.GetState(act, player, _context);
+
+              var playerContext = _context.Player.First(pl => pl.IndexP == player.IndexP);
+            playerContext.MoneyP = playee.MoneyP;
+            playerContext.State = playee.State;
+            playerContext.Turn = playee.Turn;
+            playerContext.CurrentPosition = playee.CurrentPosition;
             //playee.Turn = player.Turn;
 
             await _context.SaveChangesAsync();
@@ -143,16 +156,6 @@ namespace server2.Models
 
             return Ok();
         }
-
-
-
-
-
-
-
-
-
-
 
 
         [HttpDelete("{id}")]
@@ -191,8 +194,10 @@ namespace server2.Models
             }
 
             _context.Player.Add(player);
+           
             await _context.SaveChangesAsync();
-
+            Data.playees.Add(player);
+      
             return CreatedAtAction("GetPlayer", new { id = player.IdPlayer }, player);
         }
 

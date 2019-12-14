@@ -8,5 +8,8 @@ namespace server2.Models
         public int IndexT { get; set; }
         public string Name { get; set; }
         public int IdTile { get; set; }
+
+        public int DrawOut { get; set; }
+        public int Amaunt { get; set; }
     }
 }

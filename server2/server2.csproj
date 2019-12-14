@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Adapter\" />
+    <Folder Include="Adapter\" />
     <Folder Include="Prototype\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

@@ -109,23 +109,25 @@ namespace Monopoly2019
                 }
                 if (indexP == 0)
                 {
-                    payload = "{\"name\":\"" + textBox1.Text + "\",\"currentPosition\": 0,\"indexP\": " + indexP + ",\"isInJail\": 0,\"turn\": 1,\"moneyP\": 1500}";
+                    payload = "{\"name\":\"" + textBox1.Text + "\",\"currentPosition\": 0,\"indexP\": " + indexP + ",\"state\": 0,\"turn\": 1,\"moneyP\": 1500}";
                     currentPlayer.name = textBox1.Text;
                     currentPlayer.indexP = indexP;
-                    currentPlayer.isInJail = false;
+                    currentPlayer.state = 0;
                     currentPlayer.moneyP = 1500;
                     currentPlayer.currentPosition = 0;
                     currentPlayer.turn = 1;
+                   
                 }
                 else
                 {
-                    payload = "{\"name\":\"" + textBox1.Text + "\",\"currentPosition\": 0,\"indexP\": " + indexP + ",\"isInJail\": 0,\"turn\": 0,\"moneyP\": 1500}";
+                    payload = "{\"name\":\"" + textBox1.Text + "\",\"currentPosition\": 0,\"indexP\": " + indexP + ",\"state\": 0,\"turn\": 0,\"moneyP\": 1500}";
                     currentPlayer.name = textBox1.Text;
                     currentPlayer.indexP = indexP;
-                    currentPlayer.isInJail = false;
+                    currentPlayer.state = 0;
                     currentPlayer.moneyP = 1500;
                     currentPlayer.currentPosition = 0;
                     currentPlayer.turn = 0;
+                   
                 }
 
                 HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
@@ -318,10 +320,37 @@ namespace Monopoly2019
                 Processor.UpdateData("api/players/action/5", contentGet);
                 newPosition = newPosition - 40;
             }
+            if (currentPlayer.currentPosition == 10 && currentPlayer.state == 1)
+            {
+                if (dice1Pic != dice2Pic)
+                {
+                    var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                    HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                    Processor.UpdateData("api/players/action/10", contentPay);
+                    currentPlayer.state = 0;
+                }
+                else {
+                    var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                    HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                    Processor.UpdateData("api/players/action/9", contentPay);
+                    currentPlayer.state = 0;
+                }
+              
+
+
+            }
             currentPlayer.currentPosition = newPosition;
 
-            if (newPosition == 0 || newPosition == 10 || newPosition == 20 || newPosition == 30)
-            { 
+            if (newPosition == 0 || newPosition == 10 || newPosition == 20 )
+            {
+            }
+            else if (newPosition == 30)
+            {
+                var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                Processor.UpdateData("api/players/action/9", contentPay);
+                currentPlayer.state = 1;
+                currentPlayer.currentPosition = 10;
             }
             else if (newPosition == 4 || newPosition == 38)
             {
@@ -329,33 +358,44 @@ namespace Monopoly2019
                 HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
                 Processor.UpdateData("api/players/action/4", contentPay);
             }
-            else if ( newPosition == 2 || newPosition == 7 || newPosition == 17 || newPosition == 22 || newPosition == 33 || newPosition == 36)
-            { 
-
+            //Chance
+            else if (newPosition == 7 || newPosition == 22 || newPosition == 36)
+            {
+                var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                Processor.UpdateData("api/players/action/7", contentPay);
+            }
+            //Community
+            else if (newPosition == 2 || newPosition == 17 || newPosition == 33)
+            {
+                var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
+                HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
+                Processor.UpdateData("api/players/action/8", contentPay);
             }
             else
             {
                 isStreetIndex = 0;
                 await Processor.LoadData("api/streets", onSuccess: (data) =>
                 {
-                    
+
                     var streetsMon = JsonConvert.DeserializeObject<List<PlayerM.StreetMono>>(data);
 
                     foreach (var street in streetsMon)
                     {
                         if (street.number == newPosition)
                         {
-                            if (street.fkPlayeridPlayer!=null)
+                            if (street.fkPlayeridPlayer != null)
                             {
 
                                 if (street.fkPlayeridPlayer == currentPlayer.idPlayer)
                                 {
                                     roundButton4.Visible = true;
+                                    roundButton3.Visible = true;
                                 }
                                 else { isStreetIndex = street.number; }
                             }
                         }
-                      
+
                     }
                 }, onFailure: (error) => { });
 
@@ -367,15 +407,15 @@ namespace Monopoly2019
                 }
                 else
                 {
-                   
+
 
                     var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
                     HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
                     Processor.UpdateData("api/players/action/3", contentPay);
-                   
+
                 }
 
-              
+
             }
             
             var payload = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";

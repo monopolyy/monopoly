@@ -57,7 +57,8 @@ namespace server2.Models
 
                 entity.Property(e => e.IndexP).HasColumnName("indexP");
 
-                entity.Property(e => e.IsInJail).HasColumnName("isInJail");
+                entity.Property(e => e.State).HasColumnName("state");
+
 
                 entity.Property(e => e.Turn).HasColumnName("turn");
 
@@ -133,6 +134,8 @@ namespace server2.Models
                     .HasColumnName("name")
                     .HasMaxLength(255)
                     .IsUnicode(false);
+                entity.Property(e => e.DrawOut).HasColumnName("drawOut");
+                entity.Property(e => e.Amaunt).HasColumnName("amaunt");
             });
         }
     }
