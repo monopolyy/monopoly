@@ -18,8 +18,6 @@ namespace Monopoly2019
 {
     public partial class Form1 : Form
     {
-        private bool toggle = false;
-        bool button5WasClicked = false;
         private PlayerM.PlayerMono currentPlayer = new PlayerM.PlayerMono();
         private List<PlayerM.PlayerMono> Allplayers = new List<PlayerM.PlayerMono>();
         Random rnd = new Random();
@@ -249,12 +247,15 @@ namespace Monopoly2019
 
                 foreach (var player in players)
                 {
-                    //timer2.Interval = 50000;
+                    
                     var playee = Allplayers.Find(pl => pl.indexP == player.indexP);
                     if (playee.currentPosition != player.currentPosition)
                     {
-                      
-                            playerDisplay[player.indexP].Visible = false;
+                        if (currentPlayer.indexP == player.indexP)
+                        {
+                            currentPlayer.currentPosition = player.currentPosition;
+                        }
+                        playerDisplay[player.indexP].Visible = false;
                             playee.currentPosition = player.currentPosition;
                             var index = Allplayers.FindIndex(c => c.indexP == player.indexP);
                             Allplayers[index] = playee;

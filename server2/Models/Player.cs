@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using server2.Strategy;
 using server2.Observer;
 using server2.State;
+using server2.Memento;
 //using server2.Adapter;
 
 namespace server2.Models
@@ -62,13 +63,36 @@ namespace server2.Models
         {
             this.actions.Add(s);
         }
-         public void Act(int index, Player play, monopolisContext _context)
+        /*  public void Act(int index, Player play, monopolisContext _context)
+         {
+            actions[index].operation(play, this, _context);
+         }
+         */
+         //---------------Memento------------------
+        public void SetPosition(int currentPosition)
         {
-           actions[index].operation(play, this, _context);
+            this.CurrentPosition = currentPosition;
         }
 
+        public MementoPattern MakeMemento()
+        {
+            MementoPattern newMemento= new MementoPattern(this.IndexP, this.CurrentPosition);
+            return newMemento;
+        }
+        public void restoreState(MementoPattern memento)
+        {
+
+            //this.state = restoreState.getState();
+
+            memento.Restore(this);
+            
+        }
+
+
+        //-----------------------State-----------------------
         public Player GetState(int index, Player play, monopolisContext _context)
-        {            
+        {         
+           
             if (index ==9 )
             {
                 currentState = JailState;
@@ -84,6 +108,10 @@ namespace server2.Models
                 currentState = isBankrupt;
                 this.State = 3;
                 index = 13;
+            }
+            if (index == 1)
+            {
+                Data.careTakers.add(MakeMemento());
             }
             currentState.handle(index, play,this, _context);
 
