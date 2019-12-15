@@ -19,6 +19,7 @@ namespace Monopoly2019
     public partial class Form1 : Form
     {
         private bool toggle = false;
+        bool button5WasClicked = false;
         private PlayerM.PlayerMono currentPlayer = new PlayerM.PlayerMono();
         private List<PlayerM.PlayerMono> Allplayers = new List<PlayerM.PlayerMono>();
         Random rnd = new Random();
@@ -37,10 +38,12 @@ namespace Monopoly2019
             label2.Visible = false;
             label3.Visible = false;
             label4.Visible = false;
+            label5.Visible = false;
             roundButton1.Visible = false;
             roundButton2.Visible = false;
             roundButton3.Visible = false;
             roundButton4.Visible = false;
+            roundButton5.Visible = false;
         }
         public static Form1 getInstance()
         {
@@ -260,8 +263,23 @@ namespace Monopoly2019
                        
                     
                     }
-                   // play = ShowPlayers(player);
-                //    Controls.Add(play);
+                    // play = ShowPlayers(player);
+                    //    Controls.Add(play);
+                    if (player.indexP == currentPlayer.indexP && player.turn == 3)
+                    {
+                        
+                        label5.Text = "You LOST";
+                        label5.Size= new Size(200, 30);
+                        label5.Visible = true;
+                    }
+                    else if (player.indexP != currentPlayer.indexP && player.turn == 3)
+                    {
+                        label5.Text = "You WON";
+                        label5.Size = new Size(200, 30);
+                        label5.Visible = true;
+                    }
+                    else
+
                     if (player.indexP == currentPlayer.indexP && player.turn == 1)
                     {
                         if (player.indexP == 0)
@@ -322,7 +340,8 @@ namespace Monopoly2019
             }
             if (currentPlayer.currentPosition == 10 && currentPlayer.state == 1)
             {
-                if (dice1Pic != dice2Pic)
+                roundButton5.Visible = true;
+                if (dice1 != dice2)
                 {
                     var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
                     HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
@@ -332,7 +351,7 @@ namespace Monopoly2019
                 else {
                     var payloadPay = "{\"name\":\"" + currentPlayer.name + "\",\"currentPosition\": " + newPosition + ",\"indexP\": " + currentPlayer.indexP + "}";
                     HttpContent contentPay = new StringContent(payloadPay, Encoding.UTF8, "application/json");
-                    Processor.UpdateData("api/players/action/9", contentPay);
+                    Processor.UpdateData("api/players/action/11", contentPay);
                     currentPlayer.state = 0;
                 }
               
@@ -390,7 +409,7 @@ namespace Monopoly2019
                                 if (street.fkPlayeridPlayer == currentPlayer.idPlayer)
                                 {
                                     roundButton4.Visible = true;
-                                    roundButton3.Visible = true;
+                                    roundButton2.Visible = true;
                                 }
                                 else { isStreetIndex = street.number; }
                             }
@@ -484,7 +503,14 @@ namespace Monopoly2019
             Processor.UpdateData("api/players/action/6", content);
             timer2.Enabled = true;
         }
-
+        private void roundButton5_Click(object sender, EventArgs e)
+        {
+            roundButton5.Visible = false;
+            //button5WasClicked = true;
+            var payload = "{\"name\":\"" + currentPlayer.name + "\",\"turn\":  0  ,\"indexP\": " + currentPlayer.indexP + "}";
+            HttpContent content = new StringContent(payload, Encoding.UTF8, "application/json");
+            Processor.UpdateData("api/players/action/2", content);
+        }
 
         //----------------------------------------------------Show Something-------------------------------------------
 

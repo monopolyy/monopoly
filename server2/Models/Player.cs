@@ -47,7 +47,9 @@ namespace server2.Models
             addStrategy(new Cummunity());   //8
             addStrategy(new GoToJail());   //9
             addStrategy(new GetOutOfJail());//10   
-            addStrategy(new hasBankrupted());//11   
+            addStrategy(new GetOutOfJailFree());//11  
+            addStrategy(new MissTurn());//12  
+            addStrategy(new hasBankrupted());//13   
 
             normalState.addActions(actions);
             JailState.addActions(actions);
@@ -80,7 +82,8 @@ namespace server2.Models
             if (this.MoneyP <-100)
             {
                 currentState = isBankrupt;
-                this.State = 0;
+                this.State = 3;
+                index = 13;
             }
             currentState.handle(index, play,this, _context);
 

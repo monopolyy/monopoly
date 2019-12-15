@@ -19,7 +19,7 @@ namespace server2.State
 
         public void handle(int index, Player play, Player OriginalPlayer, monopolisContext _context)
         {
-            if (index == 11)
+            if (index == 13)
             {
                 actions[index].operation(play, OriginalPlayer, _context);
             }
