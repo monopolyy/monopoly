@@ -20,7 +20,7 @@ namespace server2.Memento
         public MementoPattern get(int index)
         {
             MementoPattern restoreState = statesList[index];
-            statesList.RemoveAt(index);
+          //  statesList.RemoveAt(index);
             return restoreState;
         }
 

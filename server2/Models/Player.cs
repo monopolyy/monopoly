@@ -4,6 +4,7 @@ using server2.Strategy;
 using server2.Observer;
 using server2.State;
 using server2.Memento;
+using server2.Template;
 //using server2.Adapter;
 
 namespace server2.Models
@@ -47,7 +48,8 @@ namespace server2.Models
             addStrategy(new Chance());   //7
             addStrategy(new Cummunity());   //8
             addStrategy(new GoToJail());   //9
-            addStrategy(new GetOutOfJail());//10   
+            addStrategy(new GetOutOfJailPaid());//10  
+                                                //   addStrategy(new GetOutOfJail());//10   
             addStrategy(new GetOutOfJailFree());//11  
             addStrategy(new MissTurn());//12  
             addStrategy(new hasBankrupted());//13   
@@ -96,9 +98,9 @@ namespace server2.Models
             if (index ==9 )
             {
                 currentState = JailState;
-                this.State = 1;
+               // this.State = 1;
             }
-            if (index == 10)
+            if (index == 10||index ==11)
             {
                 currentState = normalState;
                 this.State = 0;
