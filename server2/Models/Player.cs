@@ -5,11 +5,12 @@ using server2.Observer;
 using server2.State;
 using server2.Memento;
 using server2.Template;
+using server2.Visitor;
 //using server2.Adapter;
 
 namespace server2.Models
 {
-    public partial class Player : IObserver
+    public partial class Player : IObserver, Element
     {
         /*public Player(string name, int currentposition, int indexp, bool isinjail, int turn, int moneyp, int idplayer,
             ICollection<Street> streets, List<StrategyAlgo> actions, StrategyAlgo activestrategy)
@@ -124,6 +125,9 @@ namespace server2.Models
         {
             Console.WriteLine("Player: {0} was notified about street {1} owner changes", this.Name, (street as Street).Name);
         }
-
+        public override void Accept(IVisitor visitor)
+        {
+            visitor.Visit(this);
+        }
     }
 }
