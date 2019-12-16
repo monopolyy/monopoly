@@ -4,20 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using server2.Builder;
 using server2.Models;
+using server2.Proxy;
 
 namespace server2.Facade
 {
     public class HotelFacade
     {
-        private readonly HotelName name;
-        private readonly HotelPrice price;
-        private readonly HotelBilling billing;
+        private readonly HotelName realName;
+        private readonly HotelNameProxy name;
+
+        private readonly HotelPrice realPrice;
+        private readonly HotelPriceProxy price;
+
+        private readonly HotelBilling realBilling;
+        private readonly HotelBillingProxy billing;
 
         public HotelFacade()
         {
-            name = new HotelName();
-            price = new HotelPrice();
-            billing = new HotelBilling();
+            realName = new HotelName();
+            name = new HotelNameProxy(realName);
+
+            realPrice = new HotelPrice();
+            price = new HotelPriceProxy(realPrice);
+
+            realBilling = new HotelBilling();
+            billing = new HotelBillingProxy(realBilling);
         }
         public void CreateCompleteCar(House house)
         {
