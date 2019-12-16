@@ -6,7 +6,7 @@ using server2.Models;
 
 namespace server2.Visitor
 {
-    public class PlayerMoneyVisitor : IVisitor
+    class PlayerMoneyVisitor : IVisitor
     {
         public void Visit(Element element)
         {
