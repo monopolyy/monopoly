@@ -12,8 +12,8 @@ namespace server2.Strategy
             // OriginalPlayer.Turn = player.Turn;
             // return OriginalPlayer;
             int pos = player.CurrentPosition;
-            var tax = _context.Tax.First(st => st.getNumber() == pos);
-            OriginalPlayer.MoneyP = OriginalPlayer.MoneyP - tax.getTaxAmount();
+            var tax = _context.Tax.First(st => st.Number == pos);
+            OriginalPlayer.MoneyP = OriginalPlayer.MoneyP - tax.TaxAmount;
 
             return OriginalPlayer;
 
