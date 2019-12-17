@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace server2.Visitor
 {
-    interface IVisitor
+    public interface IVisitor
     {
         void Visit(Element element);
     }

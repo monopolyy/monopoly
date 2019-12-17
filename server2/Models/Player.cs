@@ -10,7 +10,7 @@ using server2.Visitor;
 
 namespace server2.Models
 {
-    public partial class Player : IObserver, Element
+    public partial class Player : Element, IObserver 
     {
         /*public Player(string name, int currentposition, int indexp, bool isinjail, int turn, int moneyp, int idplayer,
             ICollection<Street> streets, List<StrategyAlgo> actions, StrategyAlgo activestrategy)
