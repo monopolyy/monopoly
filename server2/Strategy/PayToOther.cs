@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using server2.Models;
 using server2.Decorator;
+using server2.Interpreter;
 
 namespace server2.Strategy
 {
@@ -51,9 +52,13 @@ namespace server2.Strategy
                     {
                         if (i ==2)
                         {
+                            Expression exp = new Star2Expression(component);
+                            component = exp.star(component);
                             component = new Star2nd(component);
                         }
                         else if (i>2) {
+                            Expression exp = new Star3Expression(component);
+                            component = exp.star(component);
                             component = new Star3rd(component);
                         }
                     }
