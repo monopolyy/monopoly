@@ -18,10 +18,10 @@ namespace server2.State
 
         public void handle(int index, Player play, Player OriginalPlayer, monopolisContext _context)
         {
-         //   if (index == 10|| index ==9 ||index == 11)
-          //  {
+            if (index == 1 || index == 2 || index == 10|| index ==9 ||index == 11 || index == 12)
+            {
                 actions[index].operation(play, OriginalPlayer, _context);
-          //  }
+            }
 
 
         }

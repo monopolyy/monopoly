@@ -410,8 +410,10 @@ namespace Monopoly2019
                                 if (street.fkPlayeridPlayer == currentPlayer.idPlayer)
                                 {
                                     roundButton4.Visible = true;
-                                    roundButton2.Visible = false ;
-                                  //  roundButton3.Visible = false;
+                                    roundButton2.Visible = true ;
+                                    roundButton3.Visible = false;
+                                    roundButton1.Visible = false;
+                                    //  roundButton3.Visible = false;
                                 }
                                 else { isStreetIndex = street.number; }
                             }
